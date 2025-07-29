@@ -422,38 +422,140 @@
                 <p class="text-gray-600 text-lg">Secure your perfect table through our exclusive bidding system</p>
             </div>
 
+            <!-- Live Timer and Stats -->
             <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div>
-                        <div class="text-3xl font-bold text-red-600 mb-2">2:00</div>
-                        <div class="text-gray-600">Next Bidding Round</div>
+                        <div id="countdown-timer" class="text-3xl font-bold text-red-600 mb-2">1:45</div>
+                        <div class="text-gray-600">Time Remaining</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-blue-600 mb-2">12</div>
-                        <div class="text-gray-600">Tables Available</div>
+                        <div class="text-3xl font-bold text-blue-600 mb-2">8</div>
+                        <div class="text-gray-600">Active Bidders</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-green-600 mb-2">₹2,500</div>
-                        <div class="text-gray-600">Average Winning Bid</div>
+                        <div id="highest-bid" class="text-3xl font-bold text-green-600 mb-2">₹3,200</div>
+                        <div class="text-gray-600">Highest Current Bid</div>
                     </div>
                 </div>
             </div>
 
+            <!-- Active Bidding Tables -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- VIP Booth 2 -->
+                <div class="bg-white rounded-xl shadow-lg border-2 border-purple-200 overflow-hidden">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg">VIP Booth 2</h3>
+                            <span class="bg-white text-purple-600 px-2 py-1 rounded-full text-xs font-bold">PREMIUM</span>
+                        </div>
+                        <p class="text-purple-100 text-sm">6 seats • Private dining</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-4">
+                            <div class="text-2xl font-bold text-purple-600 mb-1">₹<span id="booth2-bid">5200</span></div>
+                            <div class="text-sm text-gray-600">Current highest bid</div>
+                        </div>
+                        <div class="space-y-3">
+                            <input type="number" id="booth2-input" placeholder="Enter your bid" min="5300" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <button onclick="placeBid('booth2', 'VIP Booth 2')" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                Place Bid
+                            </button>
+                        </div>
+                        <div class="mt-3 text-xs text-gray-500 text-center">
+                            Minimum bid: ₹<span id="booth2-min">5,300</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Garden Patio 3 -->
+                <div class="bg-white rounded-xl shadow-lg border-2 border-green-200 overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg">Garden Patio 3</h3>
+                            <span class="bg-white text-green-600 px-2 py-1 rounded-full text-xs font-bold">OUTDOOR</span>
+                        </div>
+                        <p class="text-green-100 text-sm">4 seats • Garden view</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-4">
+                            <div class="text-2xl font-bold text-green-600 mb-1">₹<span id="patio3-bid">2400</span></div>
+                            <div class="text-sm text-gray-600">Current highest bid</div>
+                        </div>
+                        <div class="space-y-3">
+                            <input type="number" id="patio3-input" placeholder="Enter your bid" min="2500" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <button onclick="placeBid('patio3', 'Garden Patio 3')" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                Place Bid
+                            </button>
+                        </div>
+                        <div class="mt-3 text-xs text-gray-500 text-center">
+                            Minimum bid: ₹<span id="patio3-min">2,500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Window Table 8 -->
+                <div class="bg-white rounded-xl shadow-lg border-2 border-orange-200 overflow-hidden">
+                    <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-lg">Window Table 8</h3>
+                            <span class="bg-white text-orange-600 px-2 py-1 rounded-full text-xs font-bold">CITY VIEW</span>
+                        </div>
+                        <p class="text-orange-100 text-sm">4 seats • Prime location</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-4">
+                            <div class="text-2xl font-bold text-orange-600 mb-1">₹<span id="window8-bid">1800</span></div>
+                            <div class="text-sm text-gray-600">Current highest bid</div>
+                        </div>
+                        <div class="space-y-3">
+                            <input type="number" id="window8-input" placeholder="Enter your bid" min="1900" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                            <button onclick="placeBid('window8', 'Window Table 8')" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                Place Bid
+                            </button>
+                        </div>
+                        <div class="mt-3 text-xs text-gray-500 text-center">
+                            Minimum bid: ₹<span id="window8-min">1,900</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bidding Activity -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h3 class="font-semibold text-lg mb-4">🔥 Live Bidding Activity</h3>
+                <div id="bidding-activity" class="space-y-2 max-h-48 overflow-y-auto">
+                    <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                        <span class="text-sm">Rajesh K. bid ₹5,200 on VIP Booth 2</span>
+                        <span class="text-xs text-gray-500">2 min ago</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                        <span class="text-sm">Priya S. bid ₹2,400 on Garden Patio 3</span>
+                        <span class="text-xs text-gray-500">3 min ago</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                        <span class="text-sm">Amit P. bid ₹1,800 on Window Table 8</span>
+                        <span class="text-xs text-gray-500">4 min ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How Bidding Works -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-xl shadow-sm p-6">
                     <h3 class="font-semibold text-xl mb-4">🔥 How Bidding Works</h3>
                     <div class="space-y-3 text-gray-600">
                         <div class="flex items-start gap-3">
                             <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">1</span>
-                            <span>Browse available tables and their current bids</span>
+                            <span>Enter your bid amount (must be higher than current bid)</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">2</span>
-                            <span>Place your bid within the 2-minute window</span>
+                            <span>Click "Place Bid" to submit your offer</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">3</span>
-                            <span>Highest bidder wins and gets 10% bonus for ordering</span>
+                            <span>Highest bidder when timer ends wins the table!</span>
                         </div>
                     </div>
                 </div>
@@ -475,12 +577,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="text-center mt-8">
-                <button onclick="startBidding()" class="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105">
-                    🔥 Join Live Bidding
-                </button>
             </div>
         </div>
 
@@ -801,12 +897,181 @@
             activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
         }
 
-        function startBidding() {
-            // This would redirect to the bidding page in a real application
-            alert('🔥 Redirecting to live bidding system...\n\nGet ready to compete for the best tables!');
+        // Bidding system variables
+        let countdownTime = 105; // 1:45 in seconds
+        let biddingActive = true;
+        
+        // Current bid amounts
+        let currentBids = {
+            'booth2': 5200,
+            'patio3': 2400,
+            'window8': 1800
+        };
+
+        // Start countdown timer
+        function startCountdown() {
+            const timer = setInterval(() => {
+                if (countdownTime <= 0) {
+                    clearInterval(timer);
+                    endBidding();
+                    return;
+                }
+                
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                document.getElementById('countdown-timer').textContent = 
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                countdownTime--;
+            }, 1000);
+        }
+
+        // Place a bid function
+        function placeBid(tableId, tableName) {
+            if (!biddingActive) {
+                alert('⏰ Bidding has ended for this round!');
+                return;
+            }
+
+            const input = document.getElementById(tableId + '-input');
+            const bidAmount = parseInt(input.value);
+            const currentBid = currentBids[tableId];
+            const minBid = currentBid + 100;
+
+            if (!bidAmount || bidAmount < minBid) {
+                alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
+                return;
+            }
+
+            // Update the bid
+            currentBids[tableId] = bidAmount;
             
-            // For demo purposes, we'll just show a message
-            // In a real app, this would navigate to the bidding page
+            // Update display
+            document.getElementById(tableId + '-bid').textContent = bidAmount.toLocaleString();
+            document.getElementById(tableId + '-min').textContent = (bidAmount + 100).toLocaleString();
+            input.min = bidAmount + 100;
+            input.value = '';
+            input.placeholder = `Enter bid (min ₹${(bidAmount + 100).toLocaleString()})`;
+
+            // Update highest bid display
+            const highestBid = Math.max(...Object.values(currentBids));
+            document.getElementById('highest-bid').textContent = `₹${highestBid.toLocaleString()}`;
+
+            // Add to activity feed
+            addBiddingActivity(`You bid ₹${bidAmount.toLocaleString()} on ${tableName}`, 'just now');
+
+            // Show success message
+            showBidSuccess(tableName, bidAmount);
+
+            // Simulate other bidders (for demo)
+            setTimeout(() => {
+                simulateCompetitorBid(tableId, tableName);
+            }, Math.random() * 10000 + 5000); // Random delay between 5-15 seconds
+        }
+
+        // Add activity to the feed
+        function addBiddingActivity(message, time) {
+            const activityFeed = document.getElementById('bidding-activity');
+            const newActivity = document.createElement('div');
+            newActivity.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-lg';
+            newActivity.innerHTML = `
+                <span class="text-sm font-semibold">${message}</span>
+                <span class="text-xs text-gray-500">${time}</span>
+            `;
+            
+            activityFeed.insertBefore(newActivity, activityFeed.firstChild);
+            
+            // Keep only last 10 activities
+            while (activityFeed.children.length > 10) {
+                activityFeed.removeChild(activityFeed.lastChild);
+            }
+        }
+
+        // Show bid success message
+        function showBidSuccess(tableName, amount) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+            successDiv.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🎉</span>
+                    <div>
+                        <div class="font-semibold">Bid Placed Successfully!</div>
+                        <div class="text-sm">₹${amount.toLocaleString()} on ${tableName}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(successDiv);
+                }, 300);
+            }, 3000);
+        }
+
+        // Simulate competitor bids
+        function simulateCompetitorBid(tableId, tableName) {
+            if (!biddingActive) return;
+
+            const names = ['Rajesh K.', 'Priya S.', 'Amit P.', 'Sneha G.', 'Vikram S.', 'Neha M.'];
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const currentBid = currentBids[tableId];
+            const newBid = currentBid + Math.floor(Math.random() * 500) + 100;
+
+            // Update the bid
+            currentBids[tableId] = newBid;
+            
+            // Update display
+            document.getElementById(tableId + '-bid').textContent = newBid.toLocaleString();
+            document.getElementById(tableId + '-min').textContent = (newBid + 100).toLocaleString();
+            
+            const input = document.getElementById(tableId + '-input');
+            input.min = newBid + 100;
+            input.placeholder = `Enter bid (min ₹${(newBid + 100).toLocaleString()})`;
+
+            // Update highest bid display
+            const highestBid = Math.max(...Object.values(currentBids));
+            document.getElementById('highest-bid').textContent = `₹${highestBid.toLocaleString()}`;
+
+            // Add to activity feed
+            addBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()} on ${tableName}`, 'just now');
+        }
+
+        // End bidding
+        function endBidding() {
+            biddingActive = false;
+            document.getElementById('countdown-timer').textContent = '0:00';
+            document.getElementById('countdown-timer').classList.add('animate-pulse');
+            
+            // Disable all bid buttons
+            document.querySelectorAll('button[onclick^="placeBid"]').forEach(button => {
+                button.disabled = true;
+                button.textContent = 'Bidding Ended';
+                button.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+
+            // Show winner announcement
+            const winners = Object.entries(currentBids).map(([tableId, amount]) => {
+                const tableName = {
+                    'booth2': 'VIP Booth 2',
+                    'patio3': 'Garden Patio 3',
+                    'window8': 'Window Table 8'
+                }[tableId];
+                return { tableName, amount };
+            });
+
+            setTimeout(() => {
+                alert(`🏆 BIDDING ENDED!\n\nWinners:\n${winners.map(w => `• ${w.tableName}: ₹${w.amount.toLocaleString()}`).join('\n')}\n\nNew bidding round starts in 5 minutes!`);
+            }, 1000);
+        }
+
+        function startBidding() {
+            showTab('bidding');
+            if (!document.getElementById('countdown-timer').textContent.includes(':')) {
+                startCountdown();
+            }
         }
 
         // Handle bidding buttons
@@ -817,6 +1082,36 @@
                 });
             }
         });
+
+        // Start countdown when bidding tab is first opened
+        let countdownStarted = false;
+        function showTab(tabName) {
+            // Hide all content sections
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.classList.remove('tab-active');
+                tab.classList.add('text-gray-600', 'hover:bg-gray-100');
+            });
+            
+            // Show selected content
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+            document.getElementById(tabName + '-content').classList.add('fade-in');
+            
+            // Activate selected tab
+            const activeTab = document.getElementById(tabName + '-tab');
+            activeTab.classList.add('tab-active');
+            activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
+
+            // Start countdown if bidding tab is opened
+            if (tabName === 'bidding' && !countdownStarted) {
+                countdownStarted = true;
+                startCountdown();
+            }
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a68e605a5937a',t:'MTc1Mzc2ODk3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a761671a18b0f',t:'MTc1Mzc2OTUxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
