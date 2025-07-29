@@ -919,12 +919,24 @@
                 
                 const minutes = Math.floor(countdownTime / 60);
                 const seconds = countdownTime % 60;
-                document.getElementById('countdown-timer').textContent = 
-                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Update main timer
+                const mainTimer = document.getElementById('countdown-timer');
+                if (mainTimer) {
+                    mainTimer.textContent = timeString;
+                }
+                
+                // Update locked timer
+                updateLockedTimer();
                 
                 countdownTime--;
             }, 1000);
         }
+
+        // User's locked table info
+        let userLockedTable = null;
+        let userBidAmount = 0;
 
         // Place a bid function
         function placeBid(tableId, tableName) {
@@ -943,6 +955,10 @@
                 return;
             }
 
+            // Lock user to this table
+            userLockedTable = { id: tableId, name: tableName };
+            userBidAmount = bidAmount;
+
             // Update the bid
             currentBids[tableId] = bidAmount;
             
@@ -960,13 +976,235 @@
             // Add to activity feed
             addBiddingActivity(`You bid ₹${bidAmount.toLocaleString()} on ${tableName}`, 'just now');
 
-            // Show success message
+            // Show success message and switch to locked view
             showBidSuccess(tableName, bidAmount);
+            
+            // Switch to locked bidding view
+            setTimeout(() => {
+                showLockedBiddingView();
+            }, 2000);
 
             // Simulate other bidders (for demo)
             setTimeout(() => {
                 simulateCompetitorBid(tableId, tableName);
             }, Math.random() * 10000 + 5000); // Random delay between 5-15 seconds
+        }
+
+        // Show locked bidding interface
+        function showLockedBiddingView() {
+            // Hide main bidding content
+            document.getElementById('bidding-content').innerHTML = `
+                <div class="text-center mb-8">
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 mb-8">
+                        <div class="text-4xl mb-4">🔒</div>
+                        <h2 class="font-playfair text-3xl font-bold mb-4">You're Locked In!</h2>
+                        <p class="text-blue-100 text-lg">You're now competing for <strong>${userLockedTable.name}</strong></p>
+                        <p class="text-blue-200 text-sm mt-2">You cannot bid on other tables until this round ends</p>
+                    </div>
+                </div>
+
+                <!-- Live Timer and Your Status -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-red-200">
+                        <div id="countdown-timer-locked" class="text-3xl font-bold text-red-600 mb-2">${Math.floor(countdownTime/60)}:${(countdownTime%60).toString().padStart(2,'0')}</div>
+                        <div class="text-gray-600">Time Remaining</div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-blue-200">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">₹${userBidAmount.toLocaleString()}</div>
+                        <div class="text-gray-600">Your Current Bid</div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 ${currentBids[userLockedTable.id] === userBidAmount ? 'border-green-200' : 'border-orange-200'}">
+                        <div class="text-3xl font-bold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'} mb-2">
+                            ${currentBids[userLockedTable.id] === userBidAmount ? '🏆 WINNING' : '⚠️ OUTBID'}
+                        </div>
+                        <div class="text-gray-600">Your Status</div>
+                    </div>
+                </div>
+
+                <!-- Your Table Details -->
+                <div class="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
+                    <div class="bg-gradient-to-r ${getTableGradient(userLockedTable.id)} text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-2xl mb-2">${userLockedTable.name}</h3>
+                                <p class="text-blue-100">${getTableDescription(userLockedTable.id)}</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-bold">₹<span id="locked-current-bid">${currentBids[userLockedTable.id].toLocaleString()}</span></div>
+                                <div class="text-blue-100 text-sm">Current Highest Bid</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-4">🎯 Increase Your Bid</h4>
+                                <div class="space-y-4">
+                                    <input type="number" id="locked-bid-input" placeholder="Enter higher bid amount" min="${currentBids[userLockedTable.id] + 100}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+                                    <button onclick="increaseBid()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-semibold text-lg transition-all duration-300">
+                                        🚀 Increase My Bid
+                                    </button>
+                                    <div class="text-center text-sm text-gray-500">
+                                        Minimum bid: ₹${(currentBids[userLockedTable.id] + 100).toLocaleString()}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-lg mb-4">📊 Competition Status</h4>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-gray-700">Total Bidders</span>
+                                        <span class="font-semibold text-blue-600">5 active</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-gray-700">Your Position</span>
+                                        <span class="font-semibold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'}">
+                                            ${currentBids[userLockedTable.id] === userBidAmount ? '#1 (Leading)' : '#2 (Behind)'}
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span class="text-gray-700">Bid Difference</span>
+                                        <span class="font-semibold text-red-600">
+                                            ${currentBids[userLockedTable.id] === userBidAmount ? 'You\'re winning!' : '₹' + (currentBids[userLockedTable.id] - userBidAmount).toLocaleString() + ' behind'}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Activity Feed for Your Table -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h3 class="font-semibold text-lg mb-4">🔥 Live Activity - ${userLockedTable.name}</h3>
+                    <div id="locked-bidding-activity" class="space-y-2 max-h-64 overflow-y-auto">
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                            <span class="text-sm font-semibold">You bid ₹${userBidAmount.toLocaleString()} on ${userLockedTable.name}</span>
+                            <span class="text-xs text-gray-500">just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Winner Benefits Reminder -->
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 rounded-xl p-6">
+                    <div class="text-center">
+                        <div class="text-3xl mb-4">🏆</div>
+                        <h3 class="text-xl font-bold text-green-800 mb-4">Win This Table & Get Exclusive Benefits!</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="flex items-center justify-center gap-2 text-green-700">
+                                <span class="text-green-500">✓</span>
+                                <span>Guaranteed reservation</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2 text-green-700">
+                                <span class="text-green-500">✓</span>
+                                <span>10% bonus food credit</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2 text-green-700">
+                                <span class="text-green-500">✓</span>
+                                <span>Priority service</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Update the locked timer
+            updateLockedTimer();
+        }
+
+        // Helper functions for locked view
+        function getTableGradient(tableId) {
+            const gradients = {
+                'booth2': 'from-purple-500 to-pink-500',
+                'patio3': 'from-green-500 to-blue-500',
+                'window8': 'from-orange-500 to-red-500'
+            };
+            return gradients[tableId] || 'from-blue-500 to-purple-500';
+        }
+
+        function getTableDescription(tableId) {
+            const descriptions = {
+                'booth2': '6 seats • Private dining experience',
+                'patio3': '4 seats • Beautiful garden view',
+                'window8': '4 seats • Prime city view location'
+            };
+            return descriptions[tableId] || 'Premium dining experience';
+        }
+
+        // Update locked timer
+        function updateLockedTimer() {
+            const timerElement = document.getElementById('countdown-timer-locked');
+            if (timerElement) {
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Increase bid function for locked view
+        function increaseBid() {
+            if (!biddingActive) {
+                alert('⏰ Bidding has ended for this round!');
+                return;
+            }
+
+            const input = document.getElementById('locked-bid-input');
+            const newBidAmount = parseInt(input.value);
+            const currentTableBid = currentBids[userLockedTable.id];
+            const minBid = currentTableBid + 100;
+
+            if (!newBidAmount || newBidAmount < minBid) {
+                alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
+                return;
+            }
+
+            // Update user's bid
+            userBidAmount = newBidAmount;
+            currentBids[userLockedTable.id] = newBidAmount;
+
+            // Update displays
+            document.getElementById('locked-current-bid').textContent = newBidAmount.toLocaleString();
+            input.value = '';
+            input.min = newBidAmount + 100;
+            input.placeholder = `Enter bid (min ₹${(newBidAmount + 100).toLocaleString()})`;
+
+            // Add to locked activity feed
+            addLockedBiddingActivity(`You increased your bid to ₹${newBidAmount.toLocaleString()}`, 'just now');
+
+            // Show success message
+            showBidSuccess(userLockedTable.name, newBidAmount);
+
+            // Refresh the locked view to update status
+            setTimeout(() => {
+                showLockedBiddingView();
+            }, 1000);
+
+            // Simulate competitor response
+            setTimeout(() => {
+                simulateCompetitorBid(userLockedTable.id, userLockedTable.name);
+            }, Math.random() * 8000 + 3000);
+        }
+
+        // Add activity to locked feed
+        function addLockedBiddingActivity(message, time) {
+            const activityFeed = document.getElementById('locked-bidding-activity');
+            if (activityFeed) {
+                const newActivity = document.createElement('div');
+                newActivity.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-lg';
+                newActivity.innerHTML = `
+                    <span class="text-sm font-semibold">${message}</span>
+                    <span class="text-xs text-gray-500">${time}</span>
+                `;
+                
+                activityFeed.insertBefore(newActivity, activityFeed.firstChild);
+                
+                // Keep only last 10 activities
+                while (activityFeed.children.length > 10) {
+                    activityFeed.removeChild(activityFeed.lastChild);
+                }
+            }
         }
 
         // Add activity to the feed
@@ -1023,17 +1261,44 @@
             // Update the bid
             currentBids[tableId] = newBid;
             
-            // Update display
-            document.getElementById(tableId + '-bid').textContent = newBid.toLocaleString();
-            document.getElementById(tableId + '-min').textContent = (newBid + 100).toLocaleString();
-            
+            // Update display if not in locked view
+            const bidElement = document.getElementById(tableId + '-bid');
+            const minElement = document.getElementById(tableId + '-min');
             const input = document.getElementById(tableId + '-input');
-            input.min = newBid + 100;
-            input.placeholder = `Enter bid (min ₹${(newBid + 100).toLocaleString()})`;
+            
+            if (bidElement) {
+                bidElement.textContent = newBid.toLocaleString();
+            }
+            if (minElement) {
+                minElement.textContent = (newBid + 100).toLocaleString();
+            }
+            if (input) {
+                input.min = newBid + 100;
+                input.placeholder = `Enter bid (min ₹${(newBid + 100).toLocaleString()})`;
+            }
+
+            // Update locked view if user is locked to this table
+            if (userLockedTable && userLockedTable.id === tableId) {
+                const lockedBidElement = document.getElementById('locked-current-bid');
+                if (lockedBidElement) {
+                    lockedBidElement.textContent = newBid.toLocaleString();
+                }
+                
+                // Add to locked activity feed
+                addLockedBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()}`, 'just now');
+                
+                // Refresh locked view to update status
+                setTimeout(() => {
+                    showLockedBiddingView();
+                }, 500);
+            }
 
             // Update highest bid display
-            const highestBid = Math.max(...Object.values(currentBids));
-            document.getElementById('highest-bid').textContent = `₹${highestBid.toLocaleString()}`;
+            const highestBidElement = document.getElementById('highest-bid');
+            if (highestBidElement) {
+                const highestBid = Math.max(...Object.values(currentBids));
+                highestBidElement.textContent = `₹${highestBid.toLocaleString()}`;
+            }
 
             // Add to activity feed
             addBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()} on ${tableName}`, 'just now');
@@ -1086,6 +1351,12 @@
         // Start countdown when bidding tab is first opened
         let countdownStarted = false;
         function showTab(tabName) {
+            // Check if user is locked to a table
+            if (userLockedTable && tabName !== 'bidding') {
+                alert('🔒 You are locked in bidding for ' + userLockedTable.name + '! You cannot switch tabs until the bidding round ends.');
+                return;
+            }
+
             // Hide all content sections
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.add('hidden');
@@ -1113,5 +1384,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a761671a18b0f',t:'MTc1Mzc2OTUxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a7cfd03a48b0f',t:'MTc1Mzc2OTc5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
