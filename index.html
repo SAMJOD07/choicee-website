@@ -1,1208 +1,1228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choice is Yours - Premium Dining Experience</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-        
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .kitchen-bg {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f4f4f4" width="1200" height="400"/><rect fill="%23e8e8e8" x="0" y="300" width="1200" height="100"/><rect fill="%23d4d4d4" x="50" y="50" width="150" height="200" rx="10"/><rect fill="%23c0c0c0" x="250" y="80" width="120" height="170" rx="8"/><rect fill="%23b8b8b8" x="420" y="60" width="100" height="190" rx="6"/><circle fill="%23ff6b35" cx="120" cy="120" r="15"/><circle fill="%23ff8c42" cx="310" cy="140" r="12"/><circle fill="%23ffa726" cx="470" cy="130" r="10"/><rect fill="%23666" x="600" y="100" width="200" height="80" rx="5"/><rect fill="%23888" x="620" y="110" width="160" height="15" rx="2"/><rect fill="%23888" x="620" y="135" width="160" height="15" rx="2"/><rect fill="%23888" x="620" y="160" width="160" height="15" rx="2"/><circle fill="%23ff5722" cx="900" cy="120" r="20"/><circle fill="%23ff7043" cx="950" cy="140" r="18"/><circle fill="%23ff8a65" cx="1000" cy="110" r="16"/><rect fill="%23795548" x="100" y="280" width="80" height="40" rx="3"/><rect fill="%238d6e63" x="220" y="285" width="60" height="30" rx="3"/><rect fill="%23a1887f" x="320" y="290" width="70" height="25" rx="3"/><path fill="%23ffeb3b" d="M500,250 Q520,230 540,250 Q520,270 500,250"/><path fill="%23ffc107" d="M580,240 Q600,220 620,240 Q600,260 580,240"/><path fill="%23ff9800" d="M660,245 Q680,225 700,245 Q680,265 660,245"/></svg>');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        
-        .text-shadow {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .text-shadow-lg {
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-        }
-        
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8f9fa" width="1200" height="600"/><circle fill="%23e9ecef" cx="200" cy="150" r="80"/><circle fill="%23dee2e6" cx="800" cy="200" r="60"/><circle fill="%23ced4da" cx="1000" cy="400" r="100"/><rect fill="%23adb5bd" x="100" y="300" width="200" height="150" rx="10"/><rect fill="%236c757d" x="600" y="350" width="150" height="100" rx="8"/></svg>');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .tab-active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body class="bg-gray-50 font-inter">
-    <!-- Header -->
-    <header class="kitchen-bg text-white py-8 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h1 class="font-playfair text-5xl md:text-6xl font-bold mb-4 text-shadow-lg">Choice is Yours</h1>
-            <p class="text-xl text-blue-100 mb-2 text-shadow">"You choose us, We chose you"</p>
-            <p class="text-blue-200 text-shadow">Authentic Indian Cuisine • Exclusive Bidding Experience</p>
-        </div>
-    </header>
-
-    <!-- Navigation Tabs -->
-    <div class="max-w-6xl mx-auto px-4 -mt-6 relative z-10">
-        <div class="bg-white rounded-xl shadow-lg p-2 flex flex-wrap justify-center gap-2">
-            <button onclick="showTab('menu')" id="menu-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 tab-active">
-                🍽️ Menu
-            </button>
-            <button onclick="showTab('bidding')" id="bidding-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                🔥 Live Bidding
-            </button>
-            <button onclick="showTab('availability')" id="availability-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                📅 Table Status
-            </button>
-            <button onclick="showTab('history')" id="history-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                📊 Bidding History
-            </button>
-        </div>
-    </div>
-
-    <!-- Content Sections -->
-    <div class="max-w-6xl mx-auto px-4 py-12">
-        
-        <!-- Menu Section -->
-        <div id="menu-content" class="tab-content fade-in">
-            <div class="text-center mb-12">
-                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Authentic Indian Flavors</h2>
-                <p class="text-gray-600 text-lg">Traditional recipes passed down through generations</p>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Choice is Yours - Premium Dining Experience</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+            
+            .font-playfair { font-family: 'Playfair Display', serif; }
+            .font-inter { font-family: 'Inter', sans-serif; }
+            
+            .gradient-bg {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            .kitchen-bg {
+                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f4f4f4" width="1200" height="400"/><rect fill="%23e8e8e8" x="0" y="300" width="1200" height="100"/><rect fill="%23d4d4d4" x="50" y="50" width="150" height="200" rx="10"/><rect fill="%23c0c0c0" x="250" y="80" width="120" height="170" rx="8"/><rect fill="%23b8b8b8" x="420" y="60" width="100" height="190" rx="6"/><circle fill="%23ff6b35" cx="120" cy="120" r="15"/><circle fill="%23ff8c42" cx="310" cy="140" r="12"/><circle fill="%23ffa726" cx="470" cy="130" r="10"/><rect fill="%23666" x="600" y="100" width="200" height="80" rx="5"/><rect fill="%23888" x="620" y="110" width="160" height="15" rx="2"/><rect fill="%23888" x="620" y="135" width="160" height="15" rx="2"/><rect fill="%23888" x="620" y="160" width="160" height="15" rx="2"/><circle fill="%23ff5722" cx="900" cy="120" r="20"/><circle fill="%23ff7043" cx="950" cy="140" r="18"/><circle fill="%23ff8a65" cx="1000" cy="110" r="16"/><rect fill="%23795548" x="100" y="280" width="80" height="40" rx="3"/><rect fill="%238d6e63" x="220" y="285" width="60" height="30" rx="3"/><rect fill="%23a1887f" x="320" y="290" width="70" height="25" rx="3"/><path fill="%23ffeb3b" d="M500,250 Q520,230 540,250 Q520,270 500,250"/><path fill="%23ffc107" d="M580,240 Q600,220 620,240 Q600,260 580,240"/><path fill="%23ff9800" d="M660,245 Q680,225 700,245 Q680,265 660,245"/></svg>');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            }
+            
+            .text-shadow-lg {
+                text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            }
+            
+            .hero-bg {
+                background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f8f9fa" width="1200" height="600"/><circle fill="%23e9ecef" cx="200" cy="150" r="80"/><circle fill="%23dee2e6" cx="800" cy="200" r="60"/><circle fill="%23ced4da" cx="1000" cy="400" r="100"/><rect fill="%23adb5bd" x="100" y="300" width="200" height="150" rx="10"/><rect fill="%236c757d" x="600" y="350" width="150" height="100" rx="8"/></svg>');
+                background-size: cover;
+                background-position: center;
+            }
+            
+            .tab-active {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+            
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            }
+            
+            .fade-in {
+                animation: fadeIn 0.5s ease-in;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 font-inter">
+        <!-- Header -->
+        <header class="kitchen-bg text-white py-8 px-4">
+            <div class="max-w-6xl mx-auto text-center">
+                <h1 class="font-playfair text-5xl md:text-6xl font-bold mb-4 text-shadow-lg">Choice is Yours</h1>
+                <p class="text-xl text-blue-100 mb-2 text-shadow">"You choose us, We chose you"</p>
+                <p class="text-blue-200 text-shadow">Authentic Indian Cuisine • Exclusive Bidding Experience</p>
             </div>
+        </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Appetizers -->
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
-                    <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center overflow-hidden relative">
-                        <!-- Professional Food Photography Style Background -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-100"></div>
-                        
-                        <svg viewBox="0 0 240 160" class="w-full h-full relative z-10">
-                            <defs>
-                                <!-- Professional lighting gradients -->
-                                <radialGradient id="plateGrad" cx="50%" cy="40%" r="60%">
-                                    <stop offset="0%" style="stop-color:#FFFFFF"/>
-                                    <stop offset="70%" style="stop-color:#F8F8F8"/>
-                                    <stop offset="100%" style="stop-color:#E8E8E8"/>
-                                </radialGradient>
-                                
-                                <linearGradient id="samosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#F4D03F"/>
-                                    <stop offset="50%" style="stop-color:#E6C068"/>
-                                    <stop offset="100%" style="stop-color:#D4A574"/>
-                                </linearGradient>
-                                
-                                <linearGradient id="paneerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#FFFEF7"/>
-                                    <stop offset="30%" style="stop-color:#FFF8DC"/>
-                                    <stop offset="100%" style="stop-color:#F0E68C"/>
-                                </linearGradient>
-                                
-                                <!-- Shadow filter -->
-                                <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-                                    <feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
-                                </filter>
-                            </defs>
-                            
-                            <!-- Professional ceramic plate with rim -->
-                            <ellipse cx="120" cy="120" rx="100" ry="35" fill="url(#plateGrad)" stroke="#D0D0D0" stroke-width="1"/>
-                            <ellipse cx="120" cy="118" rx="95" ry="32" fill="#FAFAFA" opacity="0.9"/>
-                            <ellipse cx="120" cy="118" rx="90" ry="28" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
-                            
-                            <!-- Premium Samosas with restaurant-quality detail -->
-                            <g transform="translate(50,75)" filter="url(#dropShadow)">
-                                <!-- First samosa - perfectly golden -->
-                                <path d="M0,25 L25,-5 L50,25 Z" fill="url(#samosaGrad)"/>
-                                <!-- Crispy texture lines -->
-                                <path d="M5,20 L20,0 L45,20" fill="none" stroke="#C8995E" stroke-width="1.2"/>
-                                <path d="M8,22 L23,2 L42,22" fill="none" stroke="#B8956A" stroke-width="0.8"/>
-                                <path d="M12,24 L25,4 L38,24" fill="none" stroke="#A0845C" stroke-width="0.6"/>
-                                <!-- Crispy edges with perfect browning -->
-                                <path d="M0,25 L25,-5" stroke="#B8956A" stroke-width="2.5"/>
-                                <path d="M25,-5 L50,25" stroke="#B8956A" stroke-width="2.5"/>
-                                <path d="M50,25 L0,25" stroke="#A0845C" stroke-width="2"/>
-                                <!-- Highlight for 3D effect -->
-                                <path d="M5,20 L20,0 L25,-5 L10,15" fill="#F4D03F" opacity="0.6"/>
-                            </g>
-                            
-                            <g transform="translate(110,80)" filter="url(#dropShadow)">
-                                <!-- Second samosa - slightly rotated -->
-                                <path d="M0,22 L22,-8 L48,24 Z" fill="url(#samosaGrad)"/>
-                                <path d="M4,18 L18,-4 L44,20" fill="none" stroke="#C8995E" stroke-width="1.2"/>
-                                <path d="M7,20 L20,-2 L41,22" fill="none" stroke="#B8956A" stroke-width="0.8"/>
-                                <path d="M0,22 L22,-8" stroke="#B8956A" stroke-width="2.5"/>
-                                <path d="M22,-8 L48,24" stroke="#B8956A" stroke-width="2.5"/>
-                                <path d="M48,24 L0,22" stroke="#A0845C" stroke-width="2"/>
-                                <path d="M4,18 L18,-4 L22,-8 L8,14" fill="#F4D03F" opacity="0.6"/>
-                            </g>
-                            
-                            <!-- Gourmet Paneer Tikka pieces with authentic char marks -->
-                            <g transform="translate(60,105)">
-                                <!-- Large paneer cube with perfect grilling -->
-                                <rect x="2" y="2" width="16" height="12" fill="#8B7355" opacity="0.4" rx="2"/>
-                                <rect x="0" y="0" width="16" height="12" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
-                                <!-- Authentic tandoor char marks -->
-                                <line x1="2" y1="3" x2="14" y2="3" stroke="#8B4513" stroke-width="1.5"/>
-                                <line x1="2" y1="6" x2="14" y2="6" stroke="#654321" stroke-width="1.2"/>
-                                <line x1="2" y1="9" x2="14" y2="9" stroke="#8B4513" stroke-width="1.5"/>
-                                <!-- Highlight for 3D effect -->
-                                <rect x="1" y="1" width="14" height="3" fill="#FFFFFF" opacity="0.3" rx="1"/>
-                            </g>
-                            
-                            <!-- Colorful bell pepper pieces -->
-                            <g transform="translate(85,110)">
-                                <!-- Red bell pepper -->
-                                <rect x="2" y="2" width="12" height="8" fill="#CD5C5C" opacity="0.4" rx="2"/>
-                                <rect x="0" y="0" width="12" height="8" fill="#FF6B35" rx="2"/>
-                                <ellipse cx="6" cy="4" rx="4" ry="2.5" fill="#FF8C42" opacity="0.8"/>
-                                <rect x="1" y="1" width="10" height="2" fill="#FF9500" opacity="0.6" rx="1"/>
-                            </g>
-                            
-                            <g transform="translate(105,108)">
-                                <!-- Green bell pepper -->
-                                <rect x="2" y="2" width="14" height="9" fill="#228B22" opacity="0.4" rx="2"/>
-                                <rect x="0" y="0" width="14" height="9" fill="#32CD32" rx="2"/>
-                                <ellipse cx="7" cy="4.5" rx="5" ry="3" fill="#90EE90" opacity="0.7"/>
-                                <rect x="1" y="1" width="12" height="2" fill="#98FB98" opacity="0.6" rx="1"/>
-                            </g>
-                            
-                            <!-- More premium paneer pieces -->
-                            <g transform="translate(130,106)">
-                                <rect x="2" y="2" width="15" height="11" fill="#8B7355" opacity="0.4" rx="2"/>
-                                <rect x="0" y="0" width="15" height="11" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
-                                <line x1="2" y1="3" x2="13" y2="3" stroke="#8B4513" stroke-width="1.5"/>
-                                <line x1="2" y1="6" x2="13" y2="6" stroke="#654321" stroke-width="1.2"/>
-                                <line x1="2" y1="9" x2="13" y2="9" stroke="#8B4513" stroke-width="1.5"/>
-                                <rect x="1" y="1" width="13" height="3" fill="#FFFFFF" opacity="0.3" rx="1"/>
-                            </g>
-                            
-                            <g transform="translate(155,109)">
-                                <!-- Another paneer piece -->
-                                <rect x="2" y="2" width="13" height="9" fill="#8B7355" opacity="0.4" rx="2"/>
-                                <rect x="0" y="0" width="13" height="9" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
-                                <line x1="2" y1="2.5" x2="11" y2="2.5" stroke="#8B4513" stroke-width="1.2"/>
-                                <line x1="2" y1="5" x2="11" y2="5" stroke="#654321" stroke-width="1"/>
-                                <line x1="2" y1="7.5" x2="11" y2="7.5" stroke="#8B4513" stroke-width="1.2"/>
-                                <rect x="1" y="1" width="11" height="2.5" fill="#FFFFFF" opacity="0.3" rx="1"/>
-                            </g>
-                            
-                            <!-- Fresh onion slices -->
-                            <g transform="translate(175,112)">
-                                <ellipse cx="0" cy="0" rx="8" ry="5" fill="#F8F8FF" stroke="#E6E6FA" stroke-width="1"/>
-                                <ellipse cx="0" cy="-1" rx="6" ry="3.5" fill="#FFFAFA" opacity="0.9"/>
-                                <ellipse cx="0" cy="-1" rx="4" ry="2" fill="#FFFFFF" opacity="0.7"/>
-                            </g>
-                            
-                            <!-- Professional garnishing -->
-                            <g transform="translate(35,125)">
-                                <!-- Fresh mint leaves with detailed veins -->
-                                <ellipse cx="0" cy="0" rx="5" ry="3" fill="#228B22" transform="rotate(15)"/>
-                                <path d="M-3,-1 Q0,-4 3,-1" fill="none" stroke="#006400" stroke-width="0.8"/>
-                                <path d="M-2,0 L2,0" stroke="#32CD32" stroke-width="0.5"/>
-                                <path d="M-1,-1 L1,1" stroke="#32CD32" stroke-width="0.3"/>
-                            </g>
-                            
-                            <g transform="translate(190,118)">
-                                <ellipse cx="0" cy="0" rx="4" ry="2.5" fill="#228B22" transform="rotate(-25)"/>
-                                <path d="M-2,-0.5 Q0,-3 2,-0.5" fill="none" stroke="#006400" stroke-width="0.6"/>
-                                <path d="M-1.5,0 L1.5,0" stroke="#32CD32" stroke-width="0.4"/>
-                            </g>
-                            
-                            <!-- Authentic spice sprinkles -->
-                            <circle cx="70" cy="130" r="1.2" fill="#FF4500"/>
-                            <circle cx="150" cy="128" r="1" fill="#FFD700"/>
-                            <circle cx="90" cy="135" r="0.8" fill="#FF6347"/>
-                            <circle cx="130" cy="132" r="1.1" fill="#FFA500"/>
-                            <circle cx="110" cy="138" r="0.9" fill="#DC143C"/>
-                            <circle cx="170" cy="135" r="0.7" fill="#FF8C00"/>
-                            
-                            <!-- Premium mint chutney portions -->
-                            <g transform="translate(25,115)">
-                                <ellipse cx="0" cy="0" rx="7" ry="4" fill="#90EE90" opacity="0.95"/>
-                                <ellipse cx="0" cy="-1" rx="5" ry="3" fill="#98FB98" opacity="0.8"/>
-                                <ellipse cx="0" cy="-1" rx="3" ry="2" fill="#ADFF2F" opacity="0.6"/>
-                            </g>
-                            
-                            <g transform="translate(195,120)">
-                                <ellipse cx="0" cy="0" rx="6" ry="3.5" fill="#90EE90" opacity="0.95"/>
-                                <ellipse cx="0" cy="-0.5" rx="4" ry="2.5" fill="#98FB98" opacity="0.8"/>
-                                <ellipse cx="0" cy="-0.5" rx="2.5" ry="1.5" fill="#ADFF2F" opacity="0.6"/>
-                            </g>
-                            
-                            <!-- Professional plate rim with subtle reflection -->
-                            <ellipse cx="120" cy="118" rx="95" ry="32" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
-                            <ellipse cx="120" cy="116" rx="90" ry="28" fill="none" stroke="#F8F8F8" stroke-width="0.8" opacity="0.5"/>
-                            
-                            <!-- Subtle steam effects for freshness -->
-                            <g opacity="0.4">
-                                <path d="M75,70 Q77,65 75,60 Q73,55 75,50" stroke="#E6E6FA" stroke-width="1.5" fill="none"/>
-                                <path d="M135,75 Q137,70 135,65 Q133,60 135,55" stroke="#E6E6FA" stroke-width="1.2" fill="none"/>
-                                <path d="M95,72 Q97,67 95,62 Q93,57 95,52" stroke="#E6E6FA" stroke-width="1" fill="none"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-4">Traditional Appetizers</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Samosa (2 pcs)</span>
-                                <span class="font-semibold">₹120</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Paneer Tikka</span>
-                                <span class="font-semibold">₹280</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Chicken 65</span>
-                                <span class="font-semibold">₹320</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Manchurian</span>
-                                <span class="font-semibold">₹120</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 mt-4">
-                            <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
-                                🔒 Win Bidding to Order
-                            </div>
-                            <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
-                                Go to Bidding
-                            </button>
-                        </div>
-                    </div>
+        <!-- Navigation Tabs -->
+        <div class="max-w-6xl mx-auto px-4 -mt-6 relative z-10">
+            <div class="bg-white rounded-xl shadow-lg p-2 flex flex-wrap justify-center gap-2">
+                <button onclick="showTab('menu')" id="menu-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 tab-active">
+                    🍽️ Menu
+                </button>
+                <button onclick="showTab('bidding')" id="bidding-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
+                    🔥 Live Bidding
+                </button>
+                <button onclick="showTab('availability')" id="availability-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
+                    📅 Table Status
+                </button>
+                <button onclick="showTab('history')" id="history-tab" class="tab-button px-6 py-3 rounded-lg font-semibold transition-all duration-300 text-gray-600 hover:bg-gray-100">
+                    📊 Bidding History
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="max-w-6xl mx-auto px-4 py-12">
+            
+            <!-- Menu Section -->
+            <div id="menu-content" class="tab-content fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Authentic Indian Flavors</h2>
+                    <p class="text-gray-600 text-lg">Traditional recipes passed down through generations</p>
                 </div>
 
-                <!-- Main Courses -->
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
-                    <div class="h-48 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center overflow-hidden">
-                        <svg viewBox="0 0 200 150" class="w-full h-full">
-                            <!-- Butter Chicken Bowl -->
-                            <ellipse cx="70" cy="90" rx="25" ry="15" fill="#8B4513"/>
-                            <ellipse cx="70" cy="85" rx="23" ry="13" fill="#FF6347"/>
-                            <path d="M50,85 Q70,75 90,85" fill="#FFA500"/>
-                            <circle cx="65" cy="80" r="4" fill="#FFE4B5"/>
-                            <circle cx="75" cy="82" r="3" fill="#FFE4B5"/>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Appetizers -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center overflow-hidden relative">
+                            <!-- Professional Food Photography Style Background -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-amber-50 to-orange-100"></div>
                             
-                            <!-- Biryani Pot -->
-                            <rect x="110" y="70" width="30" height="25" fill="#8B4513" rx="3"/>
-                            <ellipse cx="125" cy="70" rx="15" ry="8" fill="#DAA520"/>
-                            <!-- Rice grains -->
-                            <rect x="115" y="65" width="3" height="8" fill="#F5DEB3" rx="1"/>
-                            <rect x="120" y="63" width="3" height="10" fill="#F5DEB3" rx="1"/>
-                            <rect x="125" y="64" width="3" height="9" fill="#F5DEB3" rx="1"/>
-                            <rect x="130" y="62" width="3" height="11" fill="#F5DEB3" rx="1"/>
-                            <rect x="135" y="65" width="3" height="8" fill="#F5DEB3" rx="1"/>
-                            
-                            <!-- Paneer Makhani -->
-                            <ellipse cx="160" cy="85" rx="20" ry="12" fill="#8B4513"/>
-                            <ellipse cx="160" cy="82" rx="18" ry="10" fill="#FF4500"/>
-                            <rect x="155" y="78" width="8" height="6" fill="#FFF8DC" rx="1"/>
-                            <rect x="162" y="80" width="6" height="5" fill="#FFF8DC" rx="1"/>
-                            
-                            <!-- Steam effects -->
-                            <path d="M65,70 Q67,65 65,60" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
-                            <path d="M125,55 Q127,50 125,45" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
-                            <path d="M160,70 Q162,65 160,60" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-4">Signature Curries & Biryanis</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Butter Chicken</span>
-                                <span class="font-semibold">₹450</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Hyderabadi Biryani</span>
-                                <span class="font-semibold">₹520</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Paneer Makhani</span>
-                                <span class="font-semibold">₹380</span>
-                            </div>
+                            <svg viewBox="0 0 240 160" class="w-full h-full relative z-10">
+                                <defs>
+                                    <!-- Professional lighting gradients -->
+                                    <radialGradient id="plateGrad" cx="50%" cy="40%" r="60%">
+                                        <stop offset="0%" style="stop-color:#FFFFFF"/>
+                                        <stop offset="70%" style="stop-color:#F8F8F8"/>
+                                        <stop offset="100%" style="stop-color:#E8E8E8"/>
+                                    </radialGradient>
+                                    
+                                    <linearGradient id="samosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#F4D03F"/>
+                                        <stop offset="50%" style="stop-color:#E6C068"/>
+                                        <stop offset="100%" style="stop-color:#D4A574"/>
+                                    </linearGradient>
+                                    
+                                    <linearGradient id="paneerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#FFFEF7"/>
+                                        <stop offset="30%" style="stop-color:#FFF8DC"/>
+                                        <stop offset="100%" style="stop-color:#F0E68C"/>
+                                    </linearGradient>
+                                    
+                                    <!-- Shadow filter -->
+                                    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feDropShadow dx="2" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Professional ceramic plate with rim -->
+                                <ellipse cx="120" cy="120" rx="100" ry="35" fill="url(#plateGrad)" stroke="#D0D0D0" stroke-width="1"/>
+                                <ellipse cx="120" cy="118" rx="95" ry="32" fill="#FAFAFA" opacity="0.9"/>
+                                <ellipse cx="120" cy="118" rx="90" ry="28" fill="none" stroke="#F0F0F0" stroke-width="0.5"/>
+                                
+                                <!-- Premium Samosas with restaurant-quality detail -->
+                                <g transform="translate(50,75)" filter="url(#dropShadow)">
+                                    <!-- First samosa - perfectly golden -->
+                                    <path d="M0,25 L25,-5 L50,25 Z" fill="url(#samosaGrad)"/>
+                                    <!-- Crispy texture lines -->
+                                    <path d="M5,20 L20,0 L45,20" fill="none" stroke="#C8995E" stroke-width="1.2"/>
+                                    <path d="M8,22 L23,2 L42,22" fill="none" stroke="#B8956A" stroke-width="0.8"/>
+                                    <path d="M12,24 L25,4 L38,24" fill="none" stroke="#A0845C" stroke-width="0.6"/>
+                                    <!-- Crispy edges with perfect browning -->
+                                    <path d="M0,25 L25,-5" stroke="#B8956A" stroke-width="2.5"/>
+                                    <path d="M25,-5 L50,25" stroke="#B8956A" stroke-width="2.5"/>
+                                    <path d="M50,25 L0,25" stroke="#A0845C" stroke-width="2"/>
+                                    <!-- Highlight for 3D effect -->
+                                    <path d="M5,20 L20,0 L25,-5 L10,15" fill="#F4D03F" opacity="0.6"/>
+                                </g>
+                                
+                                <g transform="translate(110,80)" filter="url(#dropShadow)">
+                                    <!-- Second samosa - slightly rotated -->
+                                    <path d="M0,22 L22,-8 L48,24 Z" fill="url(#samosaGrad)"/>
+                                    <path d="M4,18 L18,-4 L44,20" fill="none" stroke="#C8995E" stroke-width="1.2"/>
+                                    <path d="M7,20 L20,-2 L41,22" fill="none" stroke="#B8956A" stroke-width="0.8"/>
+                                    <path d="M0,22 L22,-8" stroke="#B8956A" stroke-width="2.5"/>
+                                    <path d="M22,-8 L48,24" stroke="#B8956A" stroke-width="2.5"/>
+                                    <path d="M48,24 L0,22" stroke="#A0845C" stroke-width="2"/>
+                                    <path d="M4,18 L18,-4 L22,-8 L8,14" fill="#F4D03F" opacity="0.6"/>
+                                </g>
+                                
+                                <!-- Gourmet Paneer Tikka pieces with authentic char marks -->
+                                <g transform="translate(60,105)">
+                                    <!-- Large paneer cube with perfect grilling -->
+                                    <rect x="2" y="2" width="16" height="12" fill="#8B7355" opacity="0.4" rx="2"/>
+                                    <rect x="0" y="0" width="16" height="12" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
+                                    <!-- Authentic tandoor char marks -->
+                                    <line x1="2" y1="3" x2="14" y2="3" stroke="#8B4513" stroke-width="1.5"/>
+                                    <line x1="2" y1="6" x2="14" y2="6" stroke="#654321" stroke-width="1.2"/>
+                                    <line x1="2" y1="9" x2="14" y2="9" stroke="#8B4513" stroke-width="1.5"/>
+                                    <!-- Highlight for 3D effect -->
+                                    <rect x="1" y="1" width="14" height="3" fill="#FFFFFF" opacity="0.3" rx="1"/>
+                                </g>
+                                
+                                <!-- Colorful bell pepper pieces -->
+                                <g transform="translate(85,110)">
+                                    <!-- Red bell pepper -->
+                                    <rect x="2" y="2" width="12" height="8" fill="#CD5C5C" opacity="0.4" rx="2"/>
+                                    <rect x="0" y="0" width="12" height="8" fill="#FF6B35" rx="2"/>
+                                    <ellipse cx="6" cy="4" rx="4" ry="2.5" fill="#FF8C42" opacity="0.8"/>
+                                    <rect x="1" y="1" width="10" height="2" fill="#FF9500" opacity="0.6" rx="1"/>
+                                </g>
+                                
+                                <g transform="translate(105,108)">
+                                    <!-- Green bell pepper -->
+                                    <rect x="2" y="2" width="14" height="9" fill="#228B22" opacity="0.4" rx="2"/>
+                                    <rect x="0" y="0" width="14" height="9" fill="#32CD32" rx="2"/>
+                                    <ellipse cx="7" cy="4.5" rx="5" ry="3" fill="#90EE90" opacity="0.7"/>
+                                    <rect x="1" y="1" width="12" height="2" fill="#98FB98" opacity="0.6" rx="1"/>
+                                </g>
+                                
+                                <!-- More premium paneer pieces -->
+                                <g transform="translate(130,106)">
+                                    <rect x="2" y="2" width="15" height="11" fill="#8B7355" opacity="0.4" rx="2"/>
+                                    <rect x="0" y="0" width="15" height="11" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
+                                    <line x1="2" y1="3" x2="13" y2="3" stroke="#8B4513" stroke-width="1.5"/>
+                                    <line x1="2" y1="6" x2="13" y2="6" stroke="#654321" stroke-width="1.2"/>
+                                    <line x1="2" y1="9" x2="13" y2="9" stroke="#8B4513" stroke-width="1.5"/>
+                                    <rect x="1" y="1" width="13" height="3" fill="#FFFFFF" opacity="0.3" rx="1"/>
+                                </g>
+                                
+                                <g transform="translate(155,109)">
+                                    <!-- Another paneer piece -->
+                                    <rect x="2" y="2" width="13" height="9" fill="#8B7355" opacity="0.4" rx="2"/>
+                                    <rect x="0" y="0" width="13" height="9" fill="url(#paneerGrad)" rx="2" stroke="#E6D3A3" stroke-width="1"/>
+                                    <line x1="2" y1="2.5" x2="11" y2="2.5" stroke="#8B4513" stroke-width="1.2"/>
+                                    <line x1="2" y1="5" x2="11" y2="5" stroke="#654321" stroke-width="1"/>
+                                    <line x1="2" y1="7.5" x2="11" y2="7.5" stroke="#8B4513" stroke-width="1.2"/>
+                                    <rect x="1" y="1" width="11" height="2.5" fill="#FFFFFF" opacity="0.3" rx="1"/>
+                                </g>
+                                
+                                <!-- Fresh onion slices -->
+                                <g transform="translate(175,112)">
+                                    <ellipse cx="0" cy="0" rx="8" ry="5" fill="#F8F8FF" stroke="#E6E6FA" stroke-width="1"/>
+                                    <ellipse cx="0" cy="-1" rx="6" ry="3.5" fill="#FFFAFA" opacity="0.9"/>
+                                    <ellipse cx="0" cy="-1" rx="4" ry="2" fill="#FFFFFF" opacity="0.7"/>
+                                </g>
+                                
+                                <!-- Professional garnishing -->
+                                <g transform="translate(35,125)">
+                                    <!-- Fresh mint leaves with detailed veins -->
+                                    <ellipse cx="0" cy="0" rx="5" ry="3" fill="#228B22" transform="rotate(15)"/>
+                                    <path d="M-3,-1 Q0,-4 3,-1" fill="none" stroke="#006400" stroke-width="0.8"/>
+                                    <path d="M-2,0 L2,0" stroke="#32CD32" stroke-width="0.5"/>
+                                    <path d="M-1,-1 L1,1" stroke="#32CD32" stroke-width="0.3"/>
+                                </g>
+                                
+                                <g transform="translate(190,118)">
+                                    <ellipse cx="0" cy="0" rx="4" ry="2.5" fill="#228B22" transform="rotate(-25)"/>
+                                    <path d="M-2,-0.5 Q0,-3 2,-0.5" fill="none" stroke="#006400" stroke-width="0.6"/>
+                                    <path d="M-1.5,0 L1.5,0" stroke="#32CD32" stroke-width="0.4"/>
+                                </g>
+                                
+                                <!-- Authentic spice sprinkles -->
+                                <circle cx="70" cy="130" r="1.2" fill="#FF4500"/>
+                                <circle cx="150" cy="128" r="1" fill="#FFD700"/>
+                                <circle cx="90" cy="135" r="0.8" fill="#FF6347"/>
+                                <circle cx="130" cy="132" r="1.1" fill="#FFA500"/>
+                                <circle cx="110" cy="138" r="0.9" fill="#DC143C"/>
+                                <circle cx="170" cy="135" r="0.7" fill="#FF8C00"/>
+                                
+                                <!-- Premium mint chutney portions -->
+                                <g transform="translate(25,115)">
+                                    <ellipse cx="0" cy="0" rx="7" ry="4" fill="#90EE90" opacity="0.95"/>
+                                    <ellipse cx="0" cy="-1" rx="5" ry="3" fill="#98FB98" opacity="0.8"/>
+                                    <ellipse cx="0" cy="-1" rx="3" ry="2" fill="#ADFF2F" opacity="0.6"/>
+                                </g>
+                                
+                                <g transform="translate(195,120)">
+                                    <ellipse cx="0" cy="0" rx="6" ry="3.5" fill="#90EE90" opacity="0.95"/>
+                                    <ellipse cx="0" cy="-0.5" rx="4" ry="2.5" fill="#98FB98" opacity="0.8"/>
+                                    <ellipse cx="0" cy="-0.5" rx="2.5" ry="1.5" fill="#ADFF2F" opacity="0.6"/>
+                                </g>
+                                
+                                <!-- Professional plate rim with subtle reflection -->
+                                <ellipse cx="120" cy="118" rx="95" ry="32" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+                                <ellipse cx="120" cy="116" rx="90" ry="28" fill="none" stroke="#F8F8F8" stroke-width="0.8" opacity="0.5"/>
+                                
+                                <!-- Subtle steam effects for freshness -->
+                                <g opacity="0.4">
+                                    <path d="M75,70 Q77,65 75,60 Q73,55 75,50" stroke="#E6E6FA" stroke-width="1.5" fill="none"/>
+                                    <path d="M135,75 Q137,70 135,65 Q133,60 135,55" stroke="#E6E6FA" stroke-width="1.2" fill="none"/>
+                                    <path d="M95,72 Q97,67 95,62 Q93,57 95,52" stroke="#E6E6FA" stroke-width="1" fill="none"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-semibold text-lg mb-4">Traditional Appetizers</h3>
+                            <div class="space-y-3">
                                 <div class="flex justify-between">
-                                <span class="text-gray-700">Gujarati Kadhi</span>
-                                <span class="font-semibold">₹200</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 mt-4">
-                            <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
-                                🔒 Win Bidding to Order
-                            </div>
-                            <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
-                                Go to Bidding
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desserts -->
-                <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
-                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center overflow-hidden">
-                        <svg viewBox="0 0 200 150" class="w-full h-full">
-                            <!-- Gulab Jamun -->
-                            <circle cx="60" cy="80" r="12" fill="#8B4513"/>
-                            <circle cx="60" cy="78" r="10" fill="#CD853F"/>
-                            <ellipse cx="60" cy="75" rx="8" ry="6" fill="#DEB887"/>
-                            <circle cx="80" cy="90" r="10" fill="#8B4513"/>
-                            <circle cx="80" cy="88" r="8" fill="#CD853F"/>
-                            <ellipse cx="80" cy="86" rx="6" ry="4" fill="#DEB887"/>
-                            
-                            <!-- Ras Malai -->
-                            <ellipse cx="125" cy="85" rx="15" ry="8" fill="#FFF8DC"/>
-                            <ellipse cx="125" cy="83" rx="13" ry="6" fill="#FFFACD"/>
-                            <circle cx="120" cy="80" r="2" fill="#32CD32"/>
-                            <circle cx="130" cy="81" r="1.5" fill="#FF69B4"/>
-                            <path d="M115,85 Q125,80 135,85" stroke="#F0E68C" stroke-width="1" fill="none"/>
-                            
-                            <!-- Kulfi Falooda -->
-                            <rect x="155" y="60" width="12" height="35" fill="#FFE4E1" rx="6"/>
-                            <rect x="157" y="62" width="8" height="30" fill="#FFF0F5" rx="4"/>
-                            <rect x="159" y="90" width="4" height="8" fill="#8B4513"/>
-                            <!-- Falooda noodles -->
-                            <path d="M155,75 L167,75" stroke="#FF1493" stroke-width="1"/>
-                            <path d="M156,78 L166,78" stroke="#FF1493" stroke-width="1"/>
-                            <path d="M157,81 L165,81" stroke="#FF1493" stroke-width="1"/>
-                            
-                            <!-- Decorative elements -->
-                            <circle cx="70" cy="95" r="2" fill="#FFD700"/>
-                            <circle cx="135" cy="95" r="1.5" fill="#FF69B4"/>
-                            <circle cx="160" cy="105" r="2" fill="#32CD32"/>
-                        </svg>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-4">Traditional Sweets</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Gulab Jamun (2 pcs)</span>
-                                <span class="font-semibold">₹150</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Ras Malai</span>
-                                <span class="font-semibold">₹180</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-700">Kulfi Falooda</span>
-                                <span class="font-semibold">₹200</span>
-                            </div>
+                                    <span class="text-gray-700">Samosa (2 pcs)</span>
+                                    <span class="font-semibold">₹120</span>
+                                </div>
                                 <div class="flex justify-between">
-                                <span class="text-gray-700">Mango shake</span>
-                                <span class="font-semibold">₹100</span>
+                                    <span class="text-gray-700">Paneer Tikka</span>
+                                    <span class="font-semibold">₹280</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Chicken 65</span>
+                                    <span class="font-semibold">₹320</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Manchurian</span>
+                                    <span class="font-semibold">₹120</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-4">
+                                <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
+                                    🔒 Win Bidding to Order
+                                </div>
+                                <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
+                                    Go to Bidding
+                                </button>
                             </div>
                         </div>
-                        <div class="flex gap-2 mt-4">
-                            <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
-                                🔒 Win Bidding to Order
+                    </div>
+
+                    <!-- Main Courses -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center overflow-hidden">
+                            <svg viewBox="0 0 200 150" class="w-full h-full">
+                                <!-- Butter Chicken Bowl -->
+                                <ellipse cx="70" cy="90" rx="25" ry="15" fill="#8B4513"/>
+                                <ellipse cx="70" cy="85" rx="23" ry="13" fill="#FF6347"/>
+                                <path d="M50,85 Q70,75 90,85" fill="#FFA500"/>
+                                <circle cx="65" cy="80" r="4" fill="#FFE4B5"/>
+                                <circle cx="75" cy="82" r="3" fill="#FFE4B5"/>
+                                
+                                <!-- Biryani Pot -->
+                                <rect x="110" y="70" width="30" height="25" fill="#8B4513" rx="3"/>
+                                <ellipse cx="125" cy="70" rx="15" ry="8" fill="#DAA520"/>
+                                <!-- Rice grains -->
+                                <rect x="115" y="65" width="3" height="8" fill="#F5DEB3" rx="1"/>
+                                <rect x="120" y="63" width="3" height="10" fill="#F5DEB3" rx="1"/>
+                                <rect x="125" y="64" width="3" height="9" fill="#F5DEB3" rx="1"/>
+                                <rect x="130" y="62" width="3" height="11" fill="#F5DEB3" rx="1"/>
+                                <rect x="135" y="65" width="3" height="8" fill="#F5DEB3" rx="1"/>
+                                
+                                <!-- Paneer Makhani -->
+                                <ellipse cx="160" cy="85" rx="20" ry="12" fill="#8B4513"/>
+                                <ellipse cx="160" cy="82" rx="18" ry="10" fill="#FF4500"/>
+                                <rect x="155" y="78" width="8" height="6" fill="#FFF8DC" rx="1"/>
+                                <rect x="162" y="80" width="6" height="5" fill="#FFF8DC" rx="1"/>
+                                
+                                <!-- Steam effects -->
+                                <path d="M65,70 Q67,65 65,60" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
+                                <path d="M125,55 Q127,50 125,45" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
+                                <path d="M160,70 Q162,65 160,60" stroke="#E6E6FA" stroke-width="2" fill="none" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-semibold text-lg mb-4">Signature Curries & Biryanis</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Butter Chicken</span>
+                                    <span class="font-semibold">₹450</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Hyderabadi Biryani</span>
+                                    <span class="font-semibold">₹520</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Paneer Makhani</span>
+                                    <span class="font-semibold">₹380</span>
+                                </div>
+                                    <div class="flex justify-between">
+                                    <span class="text-gray-700">Gujarati Kadhi</span>
+                                    <span class="font-semibold">₹200</span>
+                                </div>
                             </div>
-                            <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
-                                Go to Bidding
+                            <div class="flex gap-2 mt-4">
+                                <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
+                                    🔒 Win Bidding to Order
+                                </div>
+                                <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
+                                    Go to Bidding
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desserts -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden card-hover transition-all duration-300">
+                        <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center overflow-hidden">
+                            <svg viewBox="0 0 200 150" class="w-full h-full">
+                                <!-- Gulab Jamun -->
+                                <circle cx="60" cy="80" r="12" fill="#8B4513"/>
+                                <circle cx="60" cy="78" r="10" fill="#CD853F"/>
+                                <ellipse cx="60" cy="75" rx="8" ry="6" fill="#DEB887"/>
+                                <circle cx="80" cy="90" r="10" fill="#8B4513"/>
+                                <circle cx="80" cy="88" r="8" fill="#CD853F"/>
+                                <ellipse cx="80" cy="86" rx="6" ry="4" fill="#DEB887"/>
+                                
+                                <!-- Ras Malai -->
+                                <ellipse cx="125" cy="85" rx="15" ry="8" fill="#FFF8DC"/>
+                                <ellipse cx="125" cy="83" rx="13" ry="6" fill="#FFFACD"/>
+                                <circle cx="120" cy="80" r="2" fill="#32CD32"/>
+                                <circle cx="130" cy="81" r="1.5" fill="#FF69B4"/>
+                                <path d="M115,85 Q125,80 135,85" stroke="#F0E68C" stroke-width="1" fill="none"/>
+                                
+                                <!-- Kulfi Falooda -->
+                                <rect x="155" y="60" width="12" height="35" fill="#FFE4E1" rx="6"/>
+                                <rect x="157" y="62" width="8" height="30" fill="#FFF0F5" rx="4"/>
+                                <rect x="159" y="90" width="4" height="8" fill="#8B4513"/>
+                                <!-- Falooda noodles -->
+                                <path d="M155,75 L167,75" stroke="#FF1493" stroke-width="1"/>
+                                <path d="M156,78 L166,78" stroke="#FF1493" stroke-width="1"/>
+                                <path d="M157,81 L165,81" stroke="#FF1493" stroke-width="1"/>
+                                
+                                <!-- Decorative elements -->
+                                <circle cx="70" cy="95" r="2" fill="#FFD700"/>
+                                <circle cx="135" cy="95" r="1.5" fill="#FF69B4"/>
+                                <circle cx="160" cy="105" r="2" fill="#32CD32"/>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-semibold text-lg mb-4">Traditional Sweets</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Gulab Jamun (2 pcs)</span>
+                                    <span class="font-semibold">₹150</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Ras Malai</span>
+                                    <span class="font-semibold">₹180</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Kulfi Falooda</span>
+                                    <span class="font-semibold">₹200</span>
+                                </div>
+                                    <div class="flex justify-between">
+                                    <span class="text-gray-700">Mango shake</span>
+                                    <span class="font-semibold">₹100</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-4">
+                                <div class="flex-1 bg-gray-100 text-gray-500 py-2 rounded-lg font-semibold text-center border-2 border-dashed border-gray-300">
+                                    🔒 Win Bidding to Order
+                                </div>
+                                <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors whitespace-nowrap">
+                                    Go to Bidding
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bidding Section -->
+            <div id="bidding-content" class="tab-content hidden">
+                <div class="text-center mb-12">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Live Table Bidding</h2>
+                    <p class="text-gray-600 text-lg">Secure your perfect table through our exclusive bidding system</p>
+                    <p class="text-gray-600 text-lg">You get 100% money back if you dont Win</p>
+                </div>
+
+                <!-- Live Timer and Stats -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div>
+                            <div id="countdown-timer" class="text-3xl font-bold text-red-600 mb-2">1:45</div>
+                            <div class="text-gray-600">Time Remaining</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-blue-600 mb-2">8</div>
+                            <div class="text-gray-600">Active Bidders</div>
+                        </div>
+                        <div>
+                            <div id="highest-bid" class="text-3xl font-bold text-green-600 mb-2">₹3,200</div>
+                            <div class="text-gray-600">Highest Current Bid</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Bidding Tables -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- VIP Booth 2 -->
+                    <div class="bg-white rounded-xl shadow-lg border-2 border-purple-200 overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-lg">VIP Booth 2</h3>
+                                <span class="bg-white text-purple-600 px-2 py-1 rounded-full text-xs font-bold">PREMIUM</span>
+                            </div>
+                            <p class="text-purple-100 text-sm">6 seats • Private dining</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center mb-4">
+                                <div class="text-2xl font-bold text-purple-600 mb-1">₹<span id="booth2-bid">5200</span></div>
+                                <div class="text-sm text-gray-600">Current highest bid</div>
+                            </div>
+                            <div class="space-y-3">
+                                <input type="number" id="booth2-input" placeholder="Enter your bid" min="5300" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                <button onclick="placeBid('booth2', 'VIP Booth 2')" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                    Place Bid
+                                </button>
+                            </div>
+                            <div class="mt-3 text-xs text-gray-500 text-center">
+                                Minimum bid: ₹<span id="booth2-min">5,300</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Garden Patio 3 -->
+                    <div class="bg-white rounded-xl shadow-lg border-2 border-green-200 overflow-hidden">
+                        <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-lg">Garden Patio 3</h3>
+                                <span class="bg-white text-green-600 px-2 py-1 rounded-full text-xs font-bold">OUTDOOR</span>
+                            </div>
+                            <p class="text-green-100 text-sm">4 seats • Garden view</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center mb-4">
+                                <div class="text-2xl font-bold text-green-600 mb-1">₹<span id="patio3-bid">2400</span></div>
+                                <div class="text-sm text-gray-600">Current highest bid</div>
+                            </div>
+                            <div class="space-y-3">
+                                <input type="number" id="patio3-input" placeholder="Enter your bid" min="2500" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                <button onclick="placeBid('patio3', 'Garden Patio 3')" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                    Place Bid
+                                </button>
+                            </div>
+                            <div class="mt-3 text-xs text-gray-500 text-center">
+                                Minimum bid: ₹<span id="patio3-min">2,500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Window Table 8 -->
+                    <div class="bg-white rounded-xl shadow-lg border-2 border-orange-200 overflow-hidden">
+                        <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-lg">Window Table 8</h3>
+                                <span class="bg-white text-orange-600 px-2 py-1 rounded-full text-xs font-bold">CITY VIEW</span>
+                            </div>
+                            <p class="text-orange-100 text-sm">4 seats • Prime location</p>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center mb-4">
+                                <div class="text-2xl font-bold text-orange-600 mb-1">₹<span id="window8-bid">1800</span></div>
+                                <div class="text-sm text-gray-600">Current highest bid</div>
+                            </div>
+                            <div class="space-y-3">
+                                <input type="number" id="window8-input" placeholder="Enter your bid" min="1900" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                                <button onclick="placeBid('window8', 'Window Table 8')" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                                    Place Bid
+                                </button>
+                            </div>
+                            <div class="mt-3 text-xs text-gray-500 text-center">
+                                Minimum bid: ₹<span id="window8-min">1,900</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Bidding Activity -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                    <h3 class="font-semibold text-lg mb-4">🔥 Live Bidding Activity</h3>
+                    <div id="bidding-activity" class="space-y-2 max-h-48 overflow-y-auto">
+                        <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                            <span class="text-sm">Rajesh K. bid ₹5,200 on VIP Booth 2</span>
+                            <span class="text-xs text-gray-500">2 min ago</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                            <span class="text-sm">Priya S. bid ₹2,400 on Garden Patio 3</span>
+                            <span class="text-xs text-gray-500">3 min ago</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                            <span class="text-sm">Amit P. bid ₹1,800 on Window Table 8</span>
+                            <span class="text-xs text-gray-500">4 min ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How Bidding Works -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-xl mb-4">🔥 How Bidding Works</h3>
+                        <div class="space-y-3 text-gray-600">
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">1</span>
+                                <span>Enter your bid amount (must be higher than current bid)</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">2</span>
+                                <span>Click "Place Bid" to submit your offer</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">3</span>
+                                <span>Highest bidder when timer ends wins the table!</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="font-semibold text-xl mb-4">🏆 Winner Benefits</h3>
+                        <div class="space-y-3 text-gray-600">
+                            <div class="flex items-center gap-3">
+                                <span class="text-green-500">✓</span>
+                                <span>Guaranteed table reservation</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-green-500">✓</span>
+                                <span>10% bonus credit for food orders</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-green-500">✓</span>
+                                <span>Priority service throughout the evening</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Availability Section -->
+            <div id="availability-content" class="tab-content hidden">
+                <div class="text-center mb-12">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Current Table Status</h2>
+                    <p class="text-gray-600 text-lg">View which tables are available for bidding - no standard reservations</p>
+                </div>
+
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8 mb-8">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🔥</div>
+                        <h3 class="text-2xl font-bold text-red-800 mb-4">Bidding Only Restaurant</h3>
+                        <p class="text-red-700 text-lg mb-6">All tables at "Choice is Yours" are exclusively available through our live bidding system. No standard reservations accepted!</p>
+                        <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
+                            Join Live Bidding Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Available Tables -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg">Window Tables</h3>
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">Bidding Open</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Prime location with city views</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Table 7 (2 seats)</span>
+                                <span class="text-orange-600 font-semibold">₹1,200 current bid</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Table 8 (4 seats)</span>
+                                <span class="text-orange-600 font-semibold">₹1,800 current bid</span>
+                            </div>
+                        </div>
+                        <button onclick="showTab('bidding')" class="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                            Join Bidding
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg">Garden Patio</h3>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">High Demand</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Outdoor dining experience</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Patio 3 (4 seats)</span>
+                                <span class="text-blue-600 font-semibold">₹2,400 current bid</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Patio 5 (6 seats)</span>
+                                <span class="text-green-600 font-semibold">₹3,500 WINNER</span>
+                            </div>
+                        </div>
+                        <button onclick="showTab('bidding')" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                            Join Bidding
+                        </button>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg">VIP Booths</h3>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold">Premium</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Private dining experience</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Booth 1 (4 seats)</span>
+                                <span class="text-green-600 font-semibold">₹5,800 WINNER</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Booth 2 (6 seats)</span>
+                                <span class="text-purple-600 font-semibold">₹5,200 current bid</span>
+                            </div>
+                        </div>
+                        <button onclick="showTab('bidding')" class="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
+                            Join Bidding
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="text-2xl">🔥</div>
+                        <div>
+                            <h3 class="font-semibold text-red-800 mb-2">Ready to Compete?</h3>
+                            <p class="text-red-700 mb-4">Every table requires winning a bid. The higher you bid, the better your chances of securing your preferred table and getting exclusive dining benefits!</p>
+                            <button onclick="showTab('bidding')" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300">
+                                Start Bidding Now
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Bidding Section -->
-        <div id="bidding-content" class="tab-content hidden">
-            <div class="text-center mb-12">
-                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Live Table Bidding</h2>
-                <p class="text-gray-600 text-lg">Secure your perfect table through our exclusive bidding system</p>
-            </div>
-
-            <!-- Live Timer and Stats -->
-            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <div id="countdown-timer" class="text-3xl font-bold text-red-600 mb-2">1:45</div>
-                        <div class="text-gray-600">Time Remaining</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-blue-600 mb-2">8</div>
-                        <div class="text-gray-600">Active Bidders</div>
-                    </div>
-                    <div>
-                        <div id="highest-bid" class="text-3xl font-bold text-green-600 mb-2">₹3,200</div>
-                        <div class="text-gray-600">Highest Current Bid</div>
-                    </div>
+            <!-- Bidding History Section -->
+            <div id="history-content" class="tab-content hidden">
+                <div class="text-center mb-12">
+                    <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Bidding History & Analytics</h2>
+                    <p class="text-gray-600 text-lg">Complete overview of all bidding activity and restaurant performance</p>
                 </div>
-            </div>
 
-            <!-- Active Bidding Tables -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- VIP Booth 2 -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-purple-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-lg">VIP Booth 2</h3>
-                            <span class="bg-white text-purple-600 px-2 py-1 rounded-full text-xs font-bold">PREMIUM</span>
-                        </div>
-                        <p class="text-purple-100 text-sm">6 seats • Private dining</p>
+                <!-- Admin Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">₹1,24,500</div>
+                        <div class="text-gray-600 text-sm">Total Bids Today</div>
                     </div>
-                    <div class="p-6">
-                        <div class="text-center mb-4">
-                            <div class="text-2xl font-bold text-purple-600 mb-1">₹<span id="booth2-bid">5200</span></div>
-                            <div class="text-sm text-gray-600">Current highest bid</div>
-                        </div>
-                        <div class="space-y-3">
-                            <input type="number" id="booth2-input" placeholder="Enter your bid" min="5300" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                            <button onclick="placeBid('booth2', 'VIP Booth 2')" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                                Place Bid
-                            </button>
-                        </div>
-                        <div class="mt-3 text-xs text-gray-500 text-center">
-                            Minimum bid: ₹<span id="booth2-min">5,300</span>
-                        </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">47</div>
+                        <div class="text-gray-600 text-sm">Successful Bids</div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+                        <div class="text-3xl font-bold text-orange-600 mb-2">₹2,650</div>
+                        <div class="text-gray-600 text-sm">Average Bid Amount</div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">89%</div>
+                        <div class="text-gray-600 text-sm">Table Occupancy</div>
                     </div>
                 </div>
 
-                <!-- Garden Patio 3 -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-green-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-lg">Garden Patio 3</h3>
-                            <span class="bg-white text-green-600 px-2 py-1 rounded-full text-xs font-bold">OUTDOOR</span>
-                        </div>
-                        <p class="text-green-100 text-sm">4 seats • Garden view</p>
+                <!-- Recent Bidding Activity -->
+                <div class="bg-white rounded-xl shadow-sm mb-8">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-800">Recent Bidding Activity</h3>
+                        <p class="text-gray-600 text-sm">Live updates of all bidding transactions</p>
                     </div>
-                    <div class="p-6">
-                        <div class="text-center mb-4">
-                            <div class="text-2xl font-bold text-green-600 mb-1">₹<span id="patio3-bid">2400</span></div>
-                            <div class="text-sm text-gray-600">Current highest bid</div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bid Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2:45 PM</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">VIP Booth 1</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Rajesh Kumar</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-green-600">₹5,800</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">WON</span></td>
+                                    <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2:43 PM</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Window Table 8</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Priya Sharma</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-orange-600">₹1,800</td>
+                                    <td class="px-6 py-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">ACTIVE</span></td>
+                                    <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2:41 PM</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Patio 3</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Amit Patel</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-red-600">₹2,200</td>
+                                    <td class="px-6 py-4"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">OUTBID</span></td>
+                                    <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2:40 PM</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Patio 5</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Sneha Gupta</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-green-600">₹3,500</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">WON</span></td>
+                                    <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2:38 PM</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Window Table 7</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">Vikram Singh</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-orange-600">₹1,200</td>
+                                    <td class="px-6 py-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">ACTIVE</span></td>
+                                    <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Customer Analytics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Top Bidders Today</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                                    <div>
+                                        <div class="font-semibold text-gray-800">Rajesh Kumar</div>
+                                        <div class="text-sm text-gray-600">3 successful bids</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-green-600">₹15,400</div>
+                                    <div class="text-sm text-gray-600">Total spent</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                                    <div>
+                                        <div class="font-semibold text-gray-800">Priya Sharma</div>
+                                        <div class="text-sm text-gray-600">2 successful bids</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-green-600">₹8,900</div>
+                                    <div class="text-sm text-gray-600">Total spent</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                                    <div>
+                                        <div class="font-semibold text-gray-800">Amit Patel</div>
+                                        <div class="text-sm text-gray-600">1 successful bid</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-green-600">₹6,200</div>
+                                    <div class="text-sm text-gray-600">Total spent</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="space-y-3">
-                            <input type="number" id="patio3-input" placeholder="Enter your bid" min="2500" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <button onclick="placeBid('patio3', 'Garden Patio 3')" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                                Place Bid
-                            </button>
-                        </div>
-                        <div class="mt-3 text-xs text-gray-500 text-center">
-                            Minimum bid: ₹<span id="patio3-min">2,500</span>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Table Performance</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">VIP Booths</div>
+                                    <div class="text-sm text-gray-600">Premium tables</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-purple-600">₹5,400</div>
+                                    <div class="text-sm text-gray-600">Avg. bid</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">Garden Patio</div>
+                                    <div class="text-sm text-gray-600">Outdoor dining</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-blue-600">₹2,950</div>
+                                    <div class="text-sm text-gray-600">Avg. bid</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                                <div>
+                                    <div class="font-semibold text-gray-800">Window Tables</div>
+                                    <div class="text-sm text-gray-600">City view tables</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-semibold text-orange-600">₹1,500</div>
+                                    <div class="text-sm text-gray-600">Avg. bid</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Window Table 8 -->
-                <div class="bg-white rounded-xl shadow-lg border-2 border-orange-200 overflow-hidden">
-                    <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-lg">Window Table 8</h3>
-                            <span class="bg-white text-orange-600 px-2 py-1 rounded-full text-xs font-bold">CITY VIEW</span>
-                        </div>
-                        <p class="text-orange-100 text-sm">4 seats • Prime location</p>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-center mb-4">
-                            <div class="text-2xl font-bold text-orange-600 mb-1">₹<span id="window8-bid">1800</span></div>
-                            <div class="text-sm text-gray-600">Current highest bid</div>
-                        </div>
-                        <div class="space-y-3">
-                            <input type="number" id="window8-input" placeholder="Enter your bid" min="1900" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                            <button onclick="placeBid('window8', 'Window Table 8')" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                                Place Bid
-                            </button>
-                        </div>
-                        <div class="mt-3 text-xs text-gray-500 text-center">
-                            Minimum bid: ₹<span id="window8-min">1,900</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Bidding Activity -->
-            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
-                <h3 class="font-semibold text-lg mb-4">🔥 Live Bidding Activity</h3>
-                <div id="bidding-activity" class="space-y-2 max-h-48 overflow-y-auto">
-                    <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
-                        <span class="text-sm">Rajesh K. bid ₹5,200 on VIP Booth 2</span>
-                        <span class="text-xs text-gray-500">2 min ago</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                        <span class="text-sm">Priya S. bid ₹2,400 on Garden Patio 3</span>
-                        <span class="text-xs text-gray-500">3 min ago</span>
-                    </div>
-                    <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
-                        <span class="text-sm">Amit P. bid ₹1,800 on Window Table 8</span>
-                        <span class="text-xs text-gray-500">4 min ago</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- How Bidding Works -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Export and Management Tools -->
                 <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-xl mb-4">🔥 How Bidding Works</h3>
-                    <div class="space-y-3 text-gray-600">
-                        <div class="flex items-start gap-3">
-                            <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">1</span>
-                            <span>Enter your bid amount (must be higher than current bid)</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">2</span>
-                            <span>Click "Place Bid" to submit your offer</span>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold">3</span>
-                            <span>Highest bidder when timer ends wins the table!</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="font-semibold text-xl mb-4">🏆 Winner Benefits</h3>
-                    <div class="space-y-3 text-gray-600">
-                        <div class="flex items-center gap-3">
-                            <span class="text-green-500">✓</span>
-                            <span>Guaranteed table reservation</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-green-500">✓</span>
-                            <span>10% bonus credit for food orders</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="text-green-500">✓</span>
-                            <span>Priority service throughout the evening</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Availability Section -->
-        <div id="availability-content" class="tab-content hidden">
-            <div class="text-center mb-12">
-                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Current Table Status</h2>
-                <p class="text-gray-600 text-lg">View which tables are available for bidding - no standard reservations</p>
-            </div>
-
-            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-8 mb-8">
-                <div class="text-center">
-                    <div class="text-4xl mb-4">🔥</div>
-                    <h3 class="text-2xl font-bold text-red-800 mb-4">Bidding Only Restaurant</h3>
-                    <p class="text-red-700 text-lg mb-6">All tables at "Choice is Yours" are exclusively available through our live bidding system. No standard reservations accepted!</p>
-                    <button onclick="showTab('bidding')" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
-                        Join Live Bidding Now
-                    </button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Available Tables -->
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-lg">Window Tables</h3>
-                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">Bidding Open</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Prime location with city views</p>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span>Table 7 (2 seats)</span>
-                            <span class="text-orange-600 font-semibold">₹1,200 current bid</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Table 8 (4 seats)</span>
-                            <span class="text-orange-600 font-semibold">₹1,800 current bid</span>
-                        </div>
-                    </div>
-                    <button onclick="showTab('bidding')" class="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                        Join Bidding
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-lg">Garden Patio</h3>
-                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold">High Demand</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Outdoor dining experience</p>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span>Patio 3 (4 seats)</span>
-                            <span class="text-blue-600 font-semibold">₹2,400 current bid</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Patio 5 (6 seats)</span>
-                            <span class="text-green-600 font-semibold">₹3,500 WINNER</span>
-                        </div>
-                    </div>
-                    <button onclick="showTab('bidding')" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                        Join Bidding
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-lg">VIP Booths</h3>
-                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-semibold">Premium</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Private dining experience</p>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span>Booth 1 (4 seats)</span>
-                            <span class="text-green-600 font-semibold">₹5,800 WINNER</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Booth 2 (6 seats)</span>
-                            <span class="text-purple-600 font-semibold">₹5,200 current bid</span>
-                        </div>
-                    </div>
-                    <button onclick="showTab('bidding')" class="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
-                        Join Bidding
-                    </button>
-                </div>
-            </div>
-
-            <div class="mt-8 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-6">
-                <div class="flex items-start gap-4">
-                    <div class="text-2xl">🔥</div>
-                    <div>
-                        <h3 class="font-semibold text-red-800 mb-2">Ready to Compete?</h3>
-                        <p class="text-red-700 mb-4">Every table requires winning a bid. The higher you bid, the better your chances of securing your preferred table and getting exclusive dining benefits!</p>
-                        <button onclick="showTab('bidding')" class="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300">
-                            Start Bidding Now
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Management Tools</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            📊 Export Data
+                        </button>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            📧 Send Reports
+                        </button>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            ⚙️ Bidding Settings
+                        </button>
+                        <button class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            🔄 Reset Daily Stats
                         </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bidding History Section -->
-        <div id="history-content" class="tab-content hidden">
-            <div class="text-center mb-12">
-                <h2 class="font-playfair text-4xl font-bold text-gray-800 mb-4">Bidding History & Analytics</h2>
-                <p class="text-gray-600 text-lg">Complete overview of all bidding activity and restaurant performance</p>
-            </div>
+        <script>
+            function showTab(tabName) {
+                // Hide all content sections
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-button').forEach(tab => {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('text-gray-600', 'hover:bg-gray-100');
+                });
+                
+                // Show selected content
+                document.getElementById(tabName + '-content').classList.remove('hidden');
+                document.getElementById(tabName + '-content').classList.add('fade-in');
+                
+                // Activate selected tab
+                const activeTab = document.getElementById(tabName + '-tab');
+                activeTab.classList.add('tab-active');
+                activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
+            }
 
-            <!-- Admin Stats Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-                    <div class="text-3xl font-bold text-blue-600 mb-2">₹1,24,500</div>
-                    <div class="text-gray-600 text-sm">Total Bids Today</div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-                    <div class="text-3xl font-bold text-green-600 mb-2">47</div>
-                    <div class="text-gray-600 text-sm">Successful Bids</div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-                    <div class="text-3xl font-bold text-orange-600 mb-2">₹2,650</div>
-                    <div class="text-gray-600 text-sm">Average Bid Amount</div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">89%</div>
-                    <div class="text-gray-600 text-sm">Table Occupancy</div>
-                </div>
-            </div>
-
-            <!-- Recent Bidding Activity -->
-            <div class="bg-white rounded-xl shadow-sm mb-8">
-                <div class="p-6 border-b border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-800">Recent Bidding Activity</h3>
-                    <p class="text-gray-600 text-sm">Live updates of all bidding transactions</p>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bid Amount</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">2:45 PM</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">VIP Booth 1</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Rajesh Kumar</td>
-                                <td class="px-6 py-4 text-sm font-semibold text-green-600">₹5,800</td>
-                                <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">WON</span></td>
-                                <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">2:43 PM</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Window Table 8</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Priya Sharma</td>
-                                <td class="px-6 py-4 text-sm font-semibold text-orange-600">₹1,800</td>
-                                <td class="px-6 py-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">ACTIVE</span></td>
-                                <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">2:41 PM</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Patio 3</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Amit Patel</td>
-                                <td class="px-6 py-4 text-sm font-semibold text-red-600">₹2,200</td>
-                                <td class="px-6 py-4"><span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">OUTBID</span></td>
-                                <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">2:40 PM</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Patio 5</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Sneha Gupta</td>
-                                <td class="px-6 py-4 text-sm font-semibold text-green-600">₹3,500</td>
-                                <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">WON</span></td>
-                                <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900">2:38 PM</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Window Table 7</td>
-                                <td class="px-6 py-4 text-sm text-gray-900">Vikram Singh</td>
-                                <td class="px-6 py-4 text-sm font-semibold text-orange-600">₹1,200</td>
-                                <td class="px-6 py-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs font-semibold">ACTIVE</span></td>
-                                <td class="px-6 py-4 text-sm"><button class="text-blue-600 hover:text-blue-800">View Details</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Customer Analytics -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Top Bidders Today</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
-                                <div>
-                                    <div class="font-semibold text-gray-800">Rajesh Kumar</div>
-                                    <div class="text-sm text-gray-600">3 successful bids</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-green-600">₹15,400</div>
-                                <div class="text-sm text-gray-600">Total spent</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
-                                <div>
-                                    <div class="font-semibold text-gray-800">Priya Sharma</div>
-                                    <div class="text-sm text-gray-600">2 successful bids</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-green-600">₹8,900</div>
-                                <div class="text-sm text-gray-600">Total spent</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
-                                <div>
-                                    <div class="font-semibold text-gray-800">Amit Patel</div>
-                                    <div class="text-sm text-gray-600">1 successful bid</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-green-600">₹6,200</div>
-                                <div class="text-sm text-gray-600">Total spent</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Table Performance</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                            <div>
-                                <div class="font-semibold text-gray-800">VIP Booths</div>
-                                <div class="text-sm text-gray-600">Premium tables</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-purple-600">₹5,400</div>
-                                <div class="text-sm text-gray-600">Avg. bid</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                            <div>
-                                <div class="font-semibold text-gray-800">Garden Patio</div>
-                                <div class="text-sm text-gray-600">Outdoor dining</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-blue-600">₹2,950</div>
-                                <div class="text-sm text-gray-600">Avg. bid</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
-                            <div>
-                                <div class="font-semibold text-gray-800">Window Tables</div>
-                                <div class="text-sm text-gray-600">City view tables</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="font-semibold text-orange-600">₹1,500</div>
-                                <div class="text-sm text-gray-600">Avg. bid</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Export and Management Tools -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Management Tools</h3>
-                <div class="flex flex-wrap gap-4">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                        📊 Export Data
-                    </button>
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                        📧 Send Reports
-                    </button>
-                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                        ⚙️ Bidding Settings
-                    </button>
-                    <button class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
-                        🔄 Reset Daily Stats
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function showTab(tabName) {
-            // Hide all content sections
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
-            });
+            // Bidding system variables
+            let countdownTime = 105; // 1:45 in seconds
+            let biddingActive = true;
             
-            // Remove active class from all tabs
-            document.querySelectorAll('.tab-button').forEach(tab => {
-                tab.classList.remove('tab-active');
-                tab.classList.add('text-gray-600', 'hover:bg-gray-100');
-            });
-            
-            // Show selected content
-            document.getElementById(tabName + '-content').classList.remove('hidden');
-            document.getElementById(tabName + '-content').classList.add('fade-in');
-            
-            // Activate selected tab
-            const activeTab = document.getElementById(tabName + '-tab');
-            activeTab.classList.add('tab-active');
-            activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
-        }
+            // Current bid amounts
+            let currentBids = {
+                'booth2': 5200,
+                'patio3': 2400,
+                'window8': 1800
+            };
 
-        // Bidding system variables
-        let countdownTime = 105; // 1:45 in seconds
-        let biddingActive = true;
-        
-        // Current bid amounts
-        let currentBids = {
-            'booth2': 5200,
-            'patio3': 2400,
-            'window8': 1800
-        };
+            // Start countdown timer
+            function startCountdown() {
+                const timer = setInterval(() => {
+                    if (countdownTime <= 0) {
+                        clearInterval(timer);
+                        endBidding();
+                        return;
+                    }
+                    
+                    const minutes = Math.floor(countdownTime / 60);
+                    const seconds = countdownTime % 60;
+                    const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    // Update main timer
+                    const mainTimer = document.getElementById('countdown-timer');
+                    if (mainTimer) {
+                        mainTimer.textContent = timeString;
+                    }
+                    
+                    // Update locked timer
+                    updateLockedTimer();
+                    
+                    countdownTime--;
+                }, 1000);
+            }
 
-        // Start countdown timer
-        function startCountdown() {
-            const timer = setInterval(() => {
-                if (countdownTime <= 0) {
-                    clearInterval(timer);
-                    endBidding();
+            // User's locked table info
+            let userLockedTable = null;
+            let userBidAmount = 0;
+
+            // Place a bid function
+            function placeBid(tableId, tableName) {
+                if (!biddingActive) {
+                    alert('⏰ Bidding has ended for this round!');
                     return;
                 }
-                
-                const minutes = Math.floor(countdownTime / 60);
-                const seconds = countdownTime % 60;
-                const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Update main timer
-                const mainTimer = document.getElementById('countdown-timer');
-                if (mainTimer) {
-                    mainTimer.textContent = timeString;
+
+                const input = document.getElementById(tableId + '-input');
+                const bidAmount = parseInt(input.value);
+                const currentBid = currentBids[tableId];
+                const minBid = currentBid + 100;
+
+                if (!bidAmount || bidAmount < minBid) {
+                    alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
+                    return;
                 }
+
+                // Lock user to this table
+                userLockedTable = { id: tableId, name: tableName };
+                userBidAmount = bidAmount;
+
+                // Update the bid
+                currentBids[tableId] = bidAmount;
                 
-                // Update locked timer
+                // Update display
+                document.getElementById(tableId + '-bid').textContent = bidAmount.toLocaleString();
+                document.getElementById(tableId + '-min').textContent = (bidAmount + 100).toLocaleString();
+                input.min = bidAmount + 100;
+                input.value = '';
+                input.placeholder = `Enter bid (min ₹${(bidAmount + 100).toLocaleString()})`;
+
+                // Update highest bid display
+                const highestBid = Math.max(...Object.values(currentBids));
+                document.getElementById('highest-bid').textContent = `₹${highestBid.toLocaleString()}`;
+
+                // Add to activity feed
+                addBiddingActivity(`You bid ₹${bidAmount.toLocaleString()} on ${tableName}`, 'just now');
+
+                // Show success message and switch to locked view
+                showBidSuccess(tableName, bidAmount);
+                
+                // Switch to locked bidding view
+                setTimeout(() => {
+                    showLockedBiddingView();
+                }, 2000);
+
+                // Simulate other bidders (for demo)
+                setTimeout(() => {
+                    simulateCompetitorBid(tableId, tableName);
+                }, Math.random() * 10000 + 5000); // Random delay between 5-15 seconds
+            }
+
+            // Show locked bidding interface
+            function showLockedBiddingView() {
+                // Hide main bidding content
+                document.getElementById('bidding-content').innerHTML = `
+                    <div class="text-center mb-8">
+                        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 mb-8">
+                            <div class="text-4xl mb-4">🔒</div>
+                            <h2 class="font-playfair text-3xl font-bold mb-4">You're Locked In!</h2>
+                            <p class="text-blue-100 text-lg">You're now competing for <strong>${userLockedTable.name}</strong></p>
+                            <p class="text-blue-200 text-sm mt-2">You cannot bid on other tables until this round ends</p>
+                        </div>
+                    </div>
+
+                    <!-- Live Timer and Your Status -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-red-200">
+                            <div id="countdown-timer-locked" class="text-3xl font-bold text-red-600 mb-2">${Math.floor(countdownTime/60)}:${(countdownTime%60).toString().padStart(2,'0')}</div>
+                            <div class="text-gray-600">Time Remaining</div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-blue-200">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">₹${userBidAmount.toLocaleString()}</div>
+                            <div class="text-gray-600">Your Current Bid</div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 ${currentBids[userLockedTable.id] === userBidAmount ? 'border-green-200' : 'border-orange-200'}">
+                            <div class="text-3xl font-bold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'} mb-2">
+                                ${currentBids[userLockedTable.id] === userBidAmount ? '🏆 WINNING' : '⚠️ OUTBID'}
+                            </div>
+                            <div class="text-gray-600">Your Status</div>
+                        </div>
+                    </div>
+
+                    <!-- Your Table Details -->
+                    <div class="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
+                        <div class="bg-gradient-to-r ${getTableGradient(userLockedTable.id)} text-white p-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-2xl mb-2">${userLockedTable.name}</h3>
+                                    <p class="text-blue-100">${getTableDescription(userLockedTable.id)}</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-3xl font-bold">₹<span id="locked-current-bid">${currentBids[userLockedTable.id].toLocaleString()}</span></div>
+                                    <div class="text-blue-100 text-sm">Current Highest Bid</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-4">🎯 Increase Your Bid</h4>
+                                    <div class="space-y-4">
+                                        <input type="number" id="locked-bid-input" placeholder="Enter higher bid amount" min="${currentBids[userLockedTable.id] + 100}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+                                        <button onclick="increaseBid()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-semibold text-lg transition-all duration-300">
+                                            🚀 Increase My Bid
+                                        </button>
+                                        <div class="text-center text-sm text-gray-500">
+                                            Minimum bid: ₹${(currentBids[userLockedTable.id] + 100).toLocaleString()}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold text-lg mb-4">📊 Competition Status</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                            <span class="text-gray-700">Total Bidders</span>
+                                            <span class="font-semibold text-blue-600">5 active</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                            <span class="text-gray-700">Your Position</span>
+                                            <span class="font-semibold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'}">
+                                                ${currentBids[userLockedTable.id] === userBidAmount ? '#1 (Leading)' : '#2 (Behind)'}
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                            <span class="text-gray-700">Bid Difference</span>
+                                            <span class="font-semibold text-red-600">
+                                                ${currentBids[userLockedTable.id] === userBidAmount ? 'You\'re winning!' : '₹' + (currentBids[userLockedTable.id] - userBidAmount).toLocaleString() + ' behind'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Activity Feed for Your Table -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                        <h3 class="font-semibold text-lg mb-4">🔥 Live Activity - ${userLockedTable.name}</h3>
+                        <div id="locked-bidding-activity" class="space-y-2 max-h-64 overflow-y-auto">
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                <span class="text-sm font-semibold">You bid ₹${userBidAmount.toLocaleString()} on ${userLockedTable.name}</span>
+                                <span class="text-xs text-gray-500">just now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Winner Benefits Reminder -->
+                    <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 rounded-xl p-6">
+                        <div class="text-center">
+                            <div class="text-3xl mb-4">🏆</div>
+                            <h3 class="text-xl font-bold text-green-800 mb-4">Win This Table & Get Exclusive Benefits!</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                <div class="flex items-center justify-center gap-2 text-green-700">
+                                    <span class="text-green-500">✓</span>
+                                    <span>Guaranteed reservation</span>
+                                </div>
+                                <div class="flex items-center justify-center gap-2 text-green-700">
+                                    <span class="text-green-500">✓</span>
+                                    <span>10% bonus food credit</span>
+                                </div>
+                                <div class="flex items-center justify-center gap-2 text-green-700">
+                                    <span class="text-green-500">✓</span>
+                                    <span>Priority service</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Update the locked timer
                 updateLockedTimer();
-                
-                countdownTime--;
-            }, 1000);
-        }
-
-        // User's locked table info
-        let userLockedTable = null;
-        let userBidAmount = 0;
-
-        // Place a bid function
-        function placeBid(tableId, tableName) {
-            if (!biddingActive) {
-                alert('⏰ Bidding has ended for this round!');
-                return;
             }
 
-            const input = document.getElementById(tableId + '-input');
-            const bidAmount = parseInt(input.value);
-            const currentBid = currentBids[tableId];
-            const minBid = currentBid + 100;
-
-            if (!bidAmount || bidAmount < minBid) {
-                alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
-                return;
+            // Helper functions for locked view
+            function getTableGradient(tableId) {
+                const gradients = {
+                    'booth2': 'from-purple-500 to-pink-500',
+                    'patio3': 'from-green-500 to-blue-500',
+                    'window8': 'from-orange-500 to-red-500'
+                };
+                return gradients[tableId] || 'from-blue-500 to-purple-500';
             }
 
-            // Lock user to this table
-            userLockedTable = { id: tableId, name: tableName };
-            userBidAmount = bidAmount;
+            function getTableDescription(tableId) {
+                const descriptions = {
+                    'booth2': '6 seats • Private dining experience',
+                    'patio3': '4 seats • Beautiful garden view',
+                    'window8': '4 seats • Prime city view location'
+                };
+                return descriptions[tableId] || 'Premium dining experience';
+            }
 
-            // Update the bid
-            currentBids[tableId] = bidAmount;
-            
-            // Update display
-            document.getElementById(tableId + '-bid').textContent = bidAmount.toLocaleString();
-            document.getElementById(tableId + '-min').textContent = (bidAmount + 100).toLocaleString();
-            input.min = bidAmount + 100;
-            input.value = '';
-            input.placeholder = `Enter bid (min ₹${(bidAmount + 100).toLocaleString()})`;
+            // Update locked timer
+            function updateLockedTimer() {
+                const timerElement = document.getElementById('countdown-timer-locked');
+                if (timerElement) {
+                    const minutes = Math.floor(countdownTime / 60);
+                    const seconds = countdownTime % 60;
+                    timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
 
-            // Update highest bid display
-            const highestBid = Math.max(...Object.values(currentBids));
-            document.getElementById('highest-bid').textContent = `₹${highestBid.toLocaleString()}`;
+            // Increase bid function for locked view
+            function increaseBid() {
+                if (!biddingActive) {
+                    alert('⏰ Bidding has ended for this round!');
+                    return;
+                }
 
-            // Add to activity feed
-            addBiddingActivity(`You bid ₹${bidAmount.toLocaleString()} on ${tableName}`, 'just now');
+                const input = document.getElementById('locked-bid-input');
+                const newBidAmount = parseInt(input.value);
+                const currentTableBid = currentBids[userLockedTable.id];
+                const minBid = currentTableBid + 100;
 
-            // Show success message and switch to locked view
-            showBidSuccess(tableName, bidAmount);
-            
-            // Switch to locked bidding view
-            setTimeout(() => {
-                showLockedBiddingView();
-            }, 2000);
+                if (!newBidAmount || newBidAmount < minBid) {
+                    alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
+                    return;
+                }
 
-            // Simulate other bidders (for demo)
-            setTimeout(() => {
-                simulateCompetitorBid(tableId, tableName);
-            }, Math.random() * 10000 + 5000); // Random delay between 5-15 seconds
-        }
+                // Update user's bid
+                userBidAmount = newBidAmount;
+                currentBids[userLockedTable.id] = newBidAmount;
 
-        // Show locked bidding interface
-        function showLockedBiddingView() {
-            // Hide main bidding content
-            document.getElementById('bidding-content').innerHTML = `
-                <div class="text-center mb-8">
-                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 mb-8">
-                        <div class="text-4xl mb-4">🔒</div>
-                        <h2 class="font-playfair text-3xl font-bold mb-4">You're Locked In!</h2>
-                        <p class="text-blue-100 text-lg">You're now competing for <strong>${userLockedTable.name}</strong></p>
-                        <p class="text-blue-200 text-sm mt-2">You cannot bid on other tables until this round ends</p>
-                    </div>
-                </div>
+                // Update displays
+                document.getElementById('locked-current-bid').textContent = newBidAmount.toLocaleString();
+                input.value = '';
+                input.min = newBidAmount + 100;
+                input.placeholder = `Enter bid (min ₹${(newBidAmount + 100).toLocaleString()})`;
 
-                <!-- Live Timer and Your Status -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-red-200">
-                        <div id="countdown-timer-locked" class="text-3xl font-bold text-red-600 mb-2">${Math.floor(countdownTime/60)}:${(countdownTime%60).toString().padStart(2,'0')}</div>
-                        <div class="text-gray-600">Time Remaining</div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 border-blue-200">
-                        <div class="text-3xl font-bold text-blue-600 mb-2">₹${userBidAmount.toLocaleString()}</div>
-                        <div class="text-gray-600">Your Current Bid</div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-lg p-6 text-center border-2 ${currentBids[userLockedTable.id] === userBidAmount ? 'border-green-200' : 'border-orange-200'}">
-                        <div class="text-3xl font-bold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'} mb-2">
-                            ${currentBids[userLockedTable.id] === userBidAmount ? '🏆 WINNING' : '⚠️ OUTBID'}
-                        </div>
-                        <div class="text-gray-600">Your Status</div>
-                    </div>
-                </div>
+                // Add to locked activity feed
+                addLockedBiddingActivity(`You increased your bid to ₹${newBidAmount.toLocaleString()}`, 'just now');
 
-                <!-- Your Table Details -->
-                <div class="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
-                    <div class="bg-gradient-to-r ${getTableGradient(userLockedTable.id)} text-white p-6">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="font-bold text-2xl mb-2">${userLockedTable.name}</h3>
-                                <p class="text-blue-100">${getTableDescription(userLockedTable.id)}</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-3xl font-bold">₹<span id="locked-current-bid">${currentBids[userLockedTable.id].toLocaleString()}</span></div>
-                                <div class="text-blue-100 text-sm">Current Highest Bid</div>
-                            </div>
-                        </div>
-                    </div>
+                // Show success message
+                showBidSuccess(userLockedTable.name, newBidAmount);
+
+                // Refresh the locked view to update status
+                setTimeout(() => {
+                    showLockedBiddingView();
+                }, 1000);
+
+                // Simulate competitor response
+                setTimeout(() => {
+                    simulateCompetitorBid(userLockedTable.id, userLockedTable.name);
+                }, Math.random() * 8000 + 3000);
+            }
+
+            // Add activity to locked feed
+            function addLockedBiddingActivity(message, time) {
+                const activityFeed = document.getElementById('locked-bidding-activity');
+                if (activityFeed) {
+                    const newActivity = document.createElement('div');
+                    newActivity.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-lg';
+                    newActivity.innerHTML = `
+                        <span class="text-sm font-semibold">${message}</span>
+                        <span class="text-xs text-gray-500">${time}</span>
+                    `;
                     
-                    <div class="p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-4">🎯 Increase Your Bid</h4>
-                                <div class="space-y-4">
-                                    <input type="number" id="locked-bid-input" placeholder="Enter higher bid amount" min="${currentBids[userLockedTable.id] + 100}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
-                                    <button onclick="increaseBid()" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-semibold text-lg transition-all duration-300">
-                                        🚀 Increase My Bid
-                                    </button>
-                                    <div class="text-center text-sm text-gray-500">
-                                        Minimum bid: ₹${(currentBids[userLockedTable.id] + 100).toLocaleString()}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h4 class="font-semibold text-lg mb-4">📊 Competition Status</h4>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                        <span class="text-gray-700">Total Bidders</span>
-                                        <span class="font-semibold text-blue-600">5 active</span>
-                                    </div>
-                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                        <span class="text-gray-700">Your Position</span>
-                                        <span class="font-semibold ${currentBids[userLockedTable.id] === userBidAmount ? 'text-green-600' : 'text-orange-600'}">
-                                            ${currentBids[userLockedTable.id] === userBidAmount ? '#1 (Leading)' : '#2 (Behind)'}
-                                        </span>
-                                    </div>
-                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                        <span class="text-gray-700">Bid Difference</span>
-                                        <span class="font-semibold text-red-600">
-                                            ${currentBids[userLockedTable.id] === userBidAmount ? 'You\'re winning!' : '₹' + (currentBids[userLockedTable.id] - userBidAmount).toLocaleString() + ' behind'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Live Activity Feed for Your Table -->
-                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-                    <h3 class="font-semibold text-lg mb-4">🔥 Live Activity - ${userLockedTable.name}</h3>
-                    <div id="locked-bidding-activity" class="space-y-2 max-h-64 overflow-y-auto">
-                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                            <span class="text-sm font-semibold">You bid ₹${userBidAmount.toLocaleString()} on ${userLockedTable.name}</span>
-                            <span class="text-xs text-gray-500">just now</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Winner Benefits Reminder -->
-                <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200 rounded-xl p-6">
-                    <div class="text-center">
-                        <div class="text-3xl mb-4">🏆</div>
-                        <h3 class="text-xl font-bold text-green-800 mb-4">Win This Table & Get Exclusive Benefits!</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                            <div class="flex items-center justify-center gap-2 text-green-700">
-                                <span class="text-green-500">✓</span>
-                                <span>Guaranteed reservation</span>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 text-green-700">
-                                <span class="text-green-500">✓</span>
-                                <span>10% bonus food credit</span>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 text-green-700">
-                                <span class="text-green-500">✓</span>
-                                <span>Priority service</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Update the locked timer
-            updateLockedTimer();
-        }
-
-        // Helper functions for locked view
-        function getTableGradient(tableId) {
-            const gradients = {
-                'booth2': 'from-purple-500 to-pink-500',
-                'patio3': 'from-green-500 to-blue-500',
-                'window8': 'from-orange-500 to-red-500'
-            };
-            return gradients[tableId] || 'from-blue-500 to-purple-500';
-        }
-
-        function getTableDescription(tableId) {
-            const descriptions = {
-                'booth2': '6 seats • Private dining experience',
-                'patio3': '4 seats • Beautiful garden view',
-                'window8': '4 seats • Prime city view location'
-            };
-            return descriptions[tableId] || 'Premium dining experience';
-        }
-
-        // Update locked timer
-        function updateLockedTimer() {
-            const timerElement = document.getElementById('countdown-timer-locked');
-            if (timerElement) {
-                const minutes = Math.floor(countdownTime / 60);
-                const seconds = countdownTime % 60;
-                timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            }
-        }
-
-        // Increase bid function for locked view
-        function increaseBid() {
-            if (!biddingActive) {
-                alert('⏰ Bidding has ended for this round!');
-                return;
+                    activityFeed.insertBefore(newActivity, activityFeed.firstChild);
+                    
+                    // Keep only last 10 activities
+                    while (activityFeed.children.length > 10) {
+                        activityFeed.removeChild(activityFeed.lastChild);
+                    }
+                }
             }
 
-            const input = document.getElementById('locked-bid-input');
-            const newBidAmount = parseInt(input.value);
-            const currentTableBid = currentBids[userLockedTable.id];
-            const minBid = currentTableBid + 100;
-
-            if (!newBidAmount || newBidAmount < minBid) {
-                alert(`❌ Please enter a bid of at least ₹${minBid.toLocaleString()}`);
-                return;
-            }
-
-            // Update user's bid
-            userBidAmount = newBidAmount;
-            currentBids[userLockedTable.id] = newBidAmount;
-
-            // Update displays
-            document.getElementById('locked-current-bid').textContent = newBidAmount.toLocaleString();
-            input.value = '';
-            input.min = newBidAmount + 100;
-            input.placeholder = `Enter bid (min ₹${(newBidAmount + 100).toLocaleString()})`;
-
-            // Add to locked activity feed
-            addLockedBiddingActivity(`You increased your bid to ₹${newBidAmount.toLocaleString()}`, 'just now');
-
-            // Show success message
-            showBidSuccess(userLockedTable.name, newBidAmount);
-
-            // Refresh the locked view to update status
-            setTimeout(() => {
-                showLockedBiddingView();
-            }, 1000);
-
-            // Simulate competitor response
-            setTimeout(() => {
-                simulateCompetitorBid(userLockedTable.id, userLockedTable.name);
-            }, Math.random() * 8000 + 3000);
-        }
-
-        // Add activity to locked feed
-        function addLockedBiddingActivity(message, time) {
-            const activityFeed = document.getElementById('locked-bidding-activity');
-            if (activityFeed) {
+            // Add activity to the feed
+            function addBiddingActivity(message, time) {
+                const activityFeed = document.getElementById('bidding-activity');
                 const newActivity = document.createElement('div');
                 newActivity.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-lg';
                 newActivity.innerHTML = `
@@ -1217,184 +1237,165 @@
                     activityFeed.removeChild(activityFeed.lastChild);
                 }
             }
-        }
 
-        // Add activity to the feed
-        function addBiddingActivity(message, time) {
-            const activityFeed = document.getElementById('bidding-activity');
-            const newActivity = document.createElement('div');
-            newActivity.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-lg';
-            newActivity.innerHTML = `
-                <span class="text-sm font-semibold">${message}</span>
-                <span class="text-xs text-gray-500">${time}</span>
-            `;
-            
-            activityFeed.insertBefore(newActivity, activityFeed.firstChild);
-            
-            // Keep only last 10 activities
-            while (activityFeed.children.length > 10) {
-                activityFeed.removeChild(activityFeed.lastChild);
-            }
-        }
-
-        // Show bid success message
-        function showBidSuccess(tableName, amount) {
-            const successDiv = document.createElement('div');
-            successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
-            successDiv.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">🎉</span>
-                    <div>
-                        <div class="font-semibold">Bid Placed Successfully!</div>
-                        <div class="text-sm">₹${amount.toLocaleString()} on ${tableName}</div>
+            // Show bid success message
+            function showBidSuccess(tableName, amount) {
+                const successDiv = document.createElement('div');
+                successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+                successDiv.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🎉</span>
+                        <div>
+                            <div class="font-semibold">Bid Placed Successfully!</div>
+                            <div class="text-sm">₹${amount.toLocaleString()} on ${tableName}</div>
+                        </div>
                     </div>
-                </div>
-            `;
-            
-            document.body.appendChild(successDiv);
-            
-            setTimeout(() => {
-                successDiv.style.transform = 'translateX(100%)';
+                `;
+                
+                document.body.appendChild(successDiv);
+                
                 setTimeout(() => {
-                    document.body.removeChild(successDiv);
-                }, 300);
-            }, 3000);
-        }
-
-        // Simulate competitor bids
-        function simulateCompetitorBid(tableId, tableName) {
-            if (!biddingActive) return;
-
-            const names = ['Rajesh K.', 'Priya S.', 'Amit P.', 'Sneha G.', 'Vikram S.', 'Neha M.'];
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const currentBid = currentBids[tableId];
-            const newBid = currentBid + Math.floor(Math.random() * 500) + 100;
-
-            // Update the bid
-            currentBids[tableId] = newBid;
-            
-            // Update display if not in locked view
-            const bidElement = document.getElementById(tableId + '-bid');
-            const minElement = document.getElementById(tableId + '-min');
-            const input = document.getElementById(tableId + '-input');
-            
-            if (bidElement) {
-                bidElement.textContent = newBid.toLocaleString();
-            }
-            if (minElement) {
-                minElement.textContent = (newBid + 100).toLocaleString();
-            }
-            if (input) {
-                input.min = newBid + 100;
-                input.placeholder = `Enter bid (min ₹${(newBid + 100).toLocaleString()})`;
+                    successDiv.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(successDiv);
+                    }, 300);
+                }, 3000);
             }
 
-            // Update locked view if user is locked to this table
-            if (userLockedTable && userLockedTable.id === tableId) {
-                const lockedBidElement = document.getElementById('locked-current-bid');
-                if (lockedBidElement) {
-                    lockedBidElement.textContent = newBid.toLocaleString();
+            // Simulate competitor bids
+            function simulateCompetitorBid(tableId, tableName) {
+                if (!biddingActive) return;
+
+                const names = ['Rajesh K.', 'Priya S.', 'Amit P.', 'Sneha G.', 'Vikram S.', 'Neha M.'];
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const currentBid = currentBids[tableId];
+                const newBid = currentBid + Math.floor(Math.random() * 500) + 100;
+
+                // Update the bid
+                currentBids[tableId] = newBid;
+                
+                // Update display if not in locked view
+                const bidElement = document.getElementById(tableId + '-bid');
+                const minElement = document.getElementById(tableId + '-min');
+                const input = document.getElementById(tableId + '-input');
+                
+                if (bidElement) {
+                    bidElement.textContent = newBid.toLocaleString();
                 }
+                if (minElement) {
+                    minElement.textContent = (newBid + 100).toLocaleString();
+                }
+                if (input) {
+                    input.min = newBid + 100;
+                    input.placeholder = `Enter bid (min ₹${(newBid + 100).toLocaleString()})`;
+                }
+
+                // Update locked view if user is locked to this table
+                if (userLockedTable && userLockedTable.id === tableId) {
+                    const lockedBidElement = document.getElementById('locked-current-bid');
+                    if (lockedBidElement) {
+                        lockedBidElement.textContent = newBid.toLocaleString();
+                    }
+                    
+                    // Add to locked activity feed
+                    addLockedBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()}`, 'just now');
+                    
+                    // Refresh locked view to update status
+                    setTimeout(() => {
+                        showLockedBiddingView();
+                    }, 500);
+                }
+
+                // Update highest bid display
+                const highestBidElement = document.getElementById('highest-bid');
+                if (highestBidElement) {
+                    const highestBid = Math.max(...Object.values(currentBids));
+                    highestBidElement.textContent = `₹${highestBid.toLocaleString()}`;
+                }
+
+                // Add to activity feed
+                addBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()} on ${tableName}`, 'just now');
+            }
+
+            // End bidding
+            function endBidding() {
+                biddingActive = false;
+                document.getElementById('countdown-timer').textContent = '0:00';
+                document.getElementById('countdown-timer').classList.add('animate-pulse');
                 
-                // Add to locked activity feed
-                addLockedBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()}`, 'just now');
-                
-                // Refresh locked view to update status
-                setTimeout(() => {
-                    showLockedBiddingView();
-                }, 500);
-            }
-
-            // Update highest bid display
-            const highestBidElement = document.getElementById('highest-bid');
-            if (highestBidElement) {
-                const highestBid = Math.max(...Object.values(currentBids));
-                highestBidElement.textContent = `₹${highestBid.toLocaleString()}`;
-            }
-
-            // Add to activity feed
-            addBiddingActivity(`${randomName} bid ₹${newBid.toLocaleString()} on ${tableName}`, 'just now');
-        }
-
-        // End bidding
-        function endBidding() {
-            biddingActive = false;
-            document.getElementById('countdown-timer').textContent = '0:00';
-            document.getElementById('countdown-timer').classList.add('animate-pulse');
-            
-            // Disable all bid buttons
-            document.querySelectorAll('button[onclick^="placeBid"]').forEach(button => {
-                button.disabled = true;
-                button.textContent = 'Bidding Ended';
-                button.classList.add('opacity-50', 'cursor-not-allowed');
-            });
-
-            // Show winner announcement
-            const winners = Object.entries(currentBids).map(([tableId, amount]) => {
-                const tableName = {
-                    'booth2': 'VIP Booth 2',
-                    'patio3': 'Garden Patio 3',
-                    'window8': 'Window Table 8'
-                }[tableId];
-                return { tableName, amount };
-            });
-
-            setTimeout(() => {
-                alert(`🏆 BIDDING ENDED!\n\nWinners:\n${winners.map(w => `• ${w.tableName}: ₹${w.amount.toLocaleString()}`).join('\n')}\n\nNew bidding round starts in 5 minutes!`);
-            }, 1000);
-        }
-
-        function startBidding() {
-            showTab('bidding');
-            if (!document.getElementById('countdown-timer').textContent.includes(':')) {
-                startCountdown();
-            }
-        }
-
-        // Handle bidding buttons
-        document.querySelectorAll('button').forEach(button => {
-            if (button.textContent.includes('Join Bidding')) {
-                button.addEventListener('click', function() {
-                    showTab('bidding');
+                // Disable all bid buttons
+                document.querySelectorAll('button[onclick^="placeBid"]').forEach(button => {
+                    button.disabled = true;
+                    button.textContent = 'Bidding Ended';
+                    button.classList.add('opacity-50', 'cursor-not-allowed');
                 });
-            }
-        });
 
-        // Start countdown when bidding tab is first opened
-        let countdownStarted = false;
-        function showTab(tabName) {
-            // Check if user is locked to a table
-            if (userLockedTable && tabName !== 'bidding') {
-                alert('🔒 You are locked in bidding for ' + userLockedTable.name + '! You cannot switch tabs until the bidding round ends.');
-                return;
+                // Show winner announcement
+                const winners = Object.entries(currentBids).map(([tableId, amount]) => {
+                    const tableName = {
+                        'booth2': 'VIP Booth 2',
+                        'patio3': 'Garden Patio 3',
+                        'window8': 'Window Table 8'
+                    }[tableId];
+                    return { tableName, amount };
+                });
+
+                setTimeout(() => {
+                    alert(`🏆 BIDDING ENDED!\n\nWinners:\n${winners.map(w => `• ${w.tableName}: ₹${w.amount.toLocaleString()}`).join('\n')}\n\nNew bidding round starts in 5 minutes!`);
+                }, 1000);
             }
 
-            // Hide all content sections
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
+            function startBidding() {
+                showTab('bidding');
+                if (!document.getElementById('countdown-timer').textContent.includes(':')) {
+                    startCountdown();
+                }
+            }
+
+            // Handle bidding buttons
+            document.querySelectorAll('button').forEach(button => {
+                if (button.textContent.includes('Join Bidding')) {
+                    button.addEventListener('click', function() {
+                        showTab('bidding');
+                    });
+                }
             });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.tab-button').forEach(tab => {
-                tab.classList.remove('tab-active');
-                tab.classList.add('text-gray-600', 'hover:bg-gray-100');
-            });
-            
-            // Show selected content
-            document.getElementById(tabName + '-content').classList.remove('hidden');
-            document.getElementById(tabName + '-content').classList.add('fade-in');
-            
-            // Activate selected tab
-            const activeTab = document.getElementById(tabName + '-tab');
-            activeTab.classList.add('tab-active');
-            activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
 
-            // Start countdown if bidding tab is opened
-            if (tabName === 'bidding' && !countdownStarted) {
-                countdownStarted = true;
-                startCountdown();
+            // Start countdown when bidding tab is first opened
+            let countdownStarted = false;
+            function showTab(tabName) {
+                // Check if user is locked to a table
+                if (userLockedTable && tabName !== 'bidding') {
+                    alert('🔒 You are locked in bidding for ' + userLockedTable.name + '! You cannot switch tabs until the bidding round ends.');
+                    return;
+                }
+
+                // Hide all content sections
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-button').forEach(tab => {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('text-gray-600', 'hover:bg-gray-100');
+                });
+                
+                // Show selected content
+                document.getElementById(tabName + '-content').classList.remove('hidden');
+                document.getElementById(tabName + '-content').classList.add('fade-in');
+                
+                // Activate selected tab
+                const activeTab = document.getElementById(tabName + '-tab');
+                activeTab.classList.add('tab-active');
+                activeTab.classList.remove('text-gray-600', 'hover:bg-gray-100');
+
+                // Start countdown if bidding tab is opened
+                if (tabName === 'bidding' && !countdownStarted) {
+                    countdownStarted = true;
+                    startCountdown();
+                }
             }
-        }
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a7cfd03a48b0f',t:'MTc1Mzc2OTc5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+        </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'966a7cfd03a48b0f',t:'MTc1Mzc2OTc5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    </html>
